@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 function App() {
   return (
-    <div className="signUpContainer container h-screen">
+    <div className="signUpContainer  h-screen">
       <Router>
         <Routes>
           <Route path="/" element={<SignUp />} />

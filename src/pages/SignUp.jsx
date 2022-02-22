@@ -1,106 +1,86 @@
 import logRegImg from "../assets/png/imgShop.png";
-import googleBtn from "../assets/png/googleBtn.png";
-import { FaUserAlt, FaLock } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+
+// Components
+import SignIn from "../components/SignIn";
+import SignUpp from "../components/SignUp";
+// Stat
+import { useState } from "react";
 function SignUp() {
+  // User signing type ------------------ { Log in || Register }
+  const [sign, setSign] = useState(true);
+  // User signing type ------------------ { Highlight }
+  //   const highlightStyle = sign ? "border-b-2 border-black" : "border-b-2";
   return (
     <>
       {/* IMAGE CONTAINER  */}
-
-      <div className="container bg-white h-2/6 bg-opacity-60 shadow-2xl flex">
-        <div className="m-auto  ">
-          <img className="w-1/2 m-auto" src={logRegImg} alt="" />
-          <p className="text-center mt-4 text-xl">Charityshop.io</p>
-        </div>
-      </div>
-      {/* FORM CONTAINER */}
-      <div className="container bg-white h-4/6 flex flex-col justify-between">
-        {/* SIGN IN / SIGN UP BUTTONS */}
-        <div className=" mb-4 flex justify-between text-center text-2xl">
-          <div className="border-b-2 border-black p-3 w-1/2 flex items-center justify-center">
-            <p className="">Sign up</p>
-          </div>
-          <div className="border-b-2 p-3 w-1/2 flex items-center justify-center">
-            <p className="">Sign in</p>
+      <div className="h-screen md:flex md:justify-center md:items-center">
+        <div className=" bg-white h-2/6 md:h-4/6 md:w-5/12 md:rounded-l-2xl bg-opacity-60 shadow-2xl flex ">
+          <div className="mx-auto mt-5">
+            <h1 className="hidden font-bold mb-6  md:block text-2xl text-center">
+              Charityshop.io
+            </h1>
+            <img className="w-1/2 md:w-10/12 m-auto" src={logRegImg} alt="" />
+            <p className="text-center mt-4 text-xl md:hidden">Charityshop.io</p>
+            <p className="hidden md:block text-white text-2xl font-bold text-center w-5/6 mx-auto mt-10">
+              You are only few steps away from your first purchase with us.
+            </p>
           </div>
         </div>
+        {/* FORM CONTAINER */}
+        <div className="bg-white h-4/6 md:h-4/6 md:w-5/12 md:rounded-r-xl flex flex-col justify-between">
+          {/* SIGN IN / SIGN UP BUTTONS */}
+          <div className="hidden md:block mt-12 mx-auto w-5/6 ">
+            <p className="text-2xl font-bold">
+              {sign ? "Sign up with us today!" : "Welcome back please log in."}
+            </p>
 
-        {/* GOOGLE BUTTON AND HR */}
-        <div className="container px-7 h-4/6 ">
-          <div className="text-center pt-2">
-            <button className="px-8">
-              <img className="h-1/2" src={googleBtn} alt="" />
+            <small className="text-[#9ca3af] text-md">
+              {sign
+                ? "Already have an account? "
+                : "Need a new account with us? "}
+              <span
+                onClick={() => {
+                  setSign((prev) => {
+                    return !prev;
+                  });
+                }}
+                className="text-[#F45437] font-bold cursor-pointer"
+              >
+                {sign ? "Log in" : "Sign up"}
+              </span>
+            </small>
+          </div>
+          <div className="mb-4 flex justify-between text-center text-2xl md:hidden">
+            <div
+              onClick={() => {
+                setSign(true);
+              }}
+              className={`${
+                sign ? "border-b-2 border-black" : "border-b-2"
+              } p-3 w-1/2 flex items-center justify-center`}
+            >
+              <p className={sign ? "text-black" : "text-[#9ca3af]"}>Sign up</p>
+            </div>
+            <div
+              onClick={() => {
+                setSign(false);
+              }}
+              className={`${
+                !sign ? "border-b-2 border-black" : "border-b-2"
+              } p-3 w-1/2 flex items-center justify-center`}
+            >
+              <p className={sign ? "text-[#9ca3af]" : "text-black"}>Sign in</p>
+            </div>
+          </div>
+
+          {/* GOOGLE BUTTON AND HR */}
+          {sign ? <SignUpp /> : <SignIn />}
+          <div className="button-container md:mx-auto md:mb-5 md:w-5/6 md:px-7 ">
+            <button className="border md:rounded-lg bg-[#F45437] h-6/6 p-2   md:h-full w-full   text-white text-xl">
+              Register
             </button>
           </div>
-          <div className="hrContainer my-4">
-            <div className="web_dev">
-              <hr />
-              <p className="px-3">or</p>
-              <hr />
-            </div>
-          </div>
-          {/* FORM COTNAIENR */}
-          <form>
-            {/* INPUT NAME */}
-            <div className="relative mb-4">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                <button
-                  type="submit"
-                  className="p-1 focus:outline-none focus:shadow-outline"
-                >
-                  <FaUserAlt />
-                </button>
-              </span>
-              <input
-                type="search"
-                name="q"
-                className="py-2 text-sm text-white border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
-                placeholder="johndoe"
-                autocomplete="off"
-              />
-            </div>
-            {/* INPUT EMAIL */}
-            <div className="relative mb-4">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                <button
-                  type="submit"
-                  class="p-1 focus:outline-none focus:shadow-outline"
-                >
-                  <MdEmail />
-                </button>
-              </span>
-              <input
-                type="search"
-                name="q"
-                class="py-2 text-sm text-white border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
-                placeholder="john@gmail.com"
-                autocomplete="off"
-              />
-            </div>
-            {/* INPUT EMAIL */}
-            <div class="relative">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <button
-                  type="submit"
-                  class="p-1 focus:outline-none focus:shadow-outline"
-                >
-                  <FaLock />
-                </button>
-              </span>
-              <input
-                type="search"
-                name="q"
-                className="py-2 text-sm text-white border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
-                placeholder="*********"
-                autocomplete="off"
-              />
-            </div>
-          </form>
         </div>
-
-        <button className="border bg-[#F45437] h-1/6 text-white text-xl">
-          Button
-        </button>
       </div>
     </>
   );

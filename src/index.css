@@ -6,7 +6,7 @@
   background: url("/src/assets/bg-web-mobile.jpg") no-repeat;
   background-size: cover; /* <------ */
   background-repeat: no-repeat;
-  background-position: center center;
+  /* background-position: center center; */
   /* border: 2px solid red; */
   /* height: 100%; */
 }
@@ -19,7 +19,11 @@
 }
 hr {
   margin-top: 12px;
-  width: 170px;
+  width: 45%;
   border: 0.2px solid rgba(117, 117, 117, 0.5);
   /* border: 1px solid $regularbluespan; */
 }
+
+/* #icon {
+  color: red;
+} */
