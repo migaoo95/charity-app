@@ -13,10 +13,10 @@ function SignUp() {
   return (
     <>
       {/* IMAGE CONTAINER  */}
-      <div className="h-screen md:flex md:justify-center md:items-center">
-        <div className=" bg-white h-2/6 md:h-4/6 md:w-5/12 md:rounded-l-2xl bg-opacity-60 shadow-2xl flex ">
-          <div className="mx-auto mt-5">
-            <h1 className="hidden font-bold mb-6  md:block text-2xl text-center">
+      <div className="h-screen md:flex md:justify-center md:items-center ">
+        <div className=" bg-white h-2/6 md:h-4/6 md:w-5/12 md:rounded-l-2xl bg-opacity-60 shadow-2xl flex md:max-h-[700px] min-h-[275px] md:min-h-[600px] md:max-w-[550px]">
+          <div className="m-auto">
+            <h1 className="hidden font-bold mb-10 md:block text-2xl text-center">
               Charityshop.io
             </h1>
             <img className="w-1/2 md:w-10/12 m-auto" src={logRegImg} alt="" />
@@ -27,7 +27,7 @@ function SignUp() {
           </div>
         </div>
         {/* FORM CONTAINER */}
-        <div className="bg-white h-4/6 md:h-4/6 md:w-5/12 md:rounded-r-xl flex flex-col justify-between">
+        <div className="bg-white h-4/6 md:h-4/6 md:w-5/12 md:rounded-r-xl flex flex-col md:justify-between md:max-h-[700px] md:min-h-[600px] md:max-w-[550px]">
           {/* SIGN IN / SIGN UP BUTTONS */}
           <div className="hidden md:block mt-12 mx-auto w-5/6 ">
             <p className="text-2xl font-bold">
@@ -76,9 +76,9 @@ function SignUp() {
           {/* GOOGLE BUTTON AND HR */}
           {sign ? <SignUpp /> : <SignIn />}
           <div className="button-container md:mx-auto md:mb-5 md:w-5/6 md:px-7 ">
-            <button className="border md:rounded-lg bg-[#F45437] h-6/6 p-2   md:h-full w-full   text-white text-xl">
+            {/* <button className="border md:rounded-lg bg-[#F45437] h-6/6 p-2   md:h-full w-full   text-white text-xl">
               Register
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

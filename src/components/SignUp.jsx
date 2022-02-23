@@ -1,7 +1,63 @@
 import googleBtn from "../assets/png/googleBtn.png";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// Firebase imports --------------- { Firebase }
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+// Import database
+import { db } from "../firebase-config";
 function SignUp() {
+  // Password visibility state toogler
+  const [hideShowPass, setHideShow] = useState(false);
+  // State form Data object
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  // Destrucuture form data
+  const { name, email, password } = formData;
+  // Navigate - react router
+  const navigate = useNavigate();
+  // handleChange function ---------------------- { onChange Function }
+  const handleChange = (e) => {
+    // Update the entire form data object based on a target
+    setFormData((prev) => ({
+      ...prev,
+      // Update exact element
+      [e.target.name]: e.target.value,
+    }));
+  };
+  // handleSubmit function ---------------------- { onSubmit Function } - async
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Create auth
+      const auth = getAuth();
+      // call create user -- await profile creation / registering the user --> returns a promise
+      const userDetails = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // get created user
+      const user = userDetails.user;
+      // Update profile/ with current user and update displayName with the formData name
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      // Redirect to home page
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="px-7 h-4/6 md:w-5/6 mx-auto">
       <div className="text-center ">
@@ -17,7 +73,7 @@ function SignUp() {
         </div>
       </div>
       {/* FORM COTNAIENR */}
-      <form className="">
+      <form className="" onSubmit={handleSubmit}>
         {/* INPUT NAME */}
         <label className="" htmlFor="name">
           Name
@@ -33,8 +89,10 @@ function SignUp() {
           </span>
           <input
             type="search"
+            value={name}
+            onChange={handleChange}
             name="name"
-            className="py-2 text-sm text-white border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
+            className="py-2 text-sm text-black border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
             placeholder="johndoe"
             autoComplete="off"
           />
@@ -55,7 +113,9 @@ function SignUp() {
           <input
             type="search"
             name="email"
-            className="py-2 text-sm text-white border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
+            value={email}
+            onChange={handleChange}
+            className="py-2 text-sm text-black border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
             placeholder="john@gmail.com"
             autoComplete="off"
           />
@@ -75,12 +135,36 @@ function SignUp() {
             </button>
           </span>
           <input
-            type="search"
             name="password"
-            className="py-2 text-sm text-white border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
+            value={password}
+            onChange={handleChange}
+            type={hideShowPass ? "text" : "password"}
+            className="py-2 text-sm text-black border w-[100%]  rounded-md pl-10 focus:outline-none focus:bg-white focus:border-[#F02E0B] focus:shadow-[4px_4px_20px_0px_rgba(240,117,11,1)] focus:text-gray-900"
             placeholder="*********"
             autoComplete="off"
           />
+          <span className="absolute inset-y-0 right-0 flex items-center pl-2">
+            <button
+              onClick={() => {
+                setHideShow((prev) => {
+                  return !prev;
+                });
+              }}
+              type="button"
+              className="p-1 focus:outline-none focus:shadow-outline"
+            >
+              {hideShowPass ? (
+                <AiFillEyeInvisible size="25px" />
+              ) : (
+                <AiFillEye size="25px" />
+              )}
+            </button>
+          </span>
+        </div>
+        <div className="mt-6  border  bottom-0 left-0 w-full">
+          <button className="border left-0 md:rounded-lg bg-[#F45437] h-6/6 p-2   md:h-full w-full   text-white text-xl">
+            Register
+          </button>
         </div>
       </form>
     </div>
