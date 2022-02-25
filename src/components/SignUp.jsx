@@ -1,9 +1,14 @@
-import googleBtn from "../assets/png/googleBtn.png";
+// import googleBtn from "../assets/png/googleBtn.png";
+// Google OAuth
+import GoogleOAuth from "./GoogleOAuth";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// Toast Alerts
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Firebase imports --------------- { Firebase }
 import {
   getAuth,
@@ -12,6 +17,7 @@ import {
 } from "firebase/auth";
 // Import database
 import { db } from "../firebase-config";
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 function SignUp() {
   // Password visibility state toogler
   const [hideShowPass, setHideShow] = useState(false);
@@ -52,18 +58,35 @@ function SignUp() {
       updateProfile(auth.currentUser, {
         displayName: name,
       });
+      // ---------------------------------- { update users document in db }
+      // Copy entire form data state
+      const formDataClone = { ...formData };
+      delete formDataClone.password;
+      formDataClone.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), formDataClone);
       // Redirect to home page
-      navigate("/");
+      navigate("/home");
     } catch (error) {
-      console.log(error);
+      if (email === "" || password === "") {
+        toast.error("Please fill in all fields");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Invalid email address");
+      } else if (
+        error.message ===
+        "Firebase: Password should be at least 6 characters (auth/weak-password)."
+      ) {
+        toast.error("Password must be longer than 6 characters");
+      }
+      console.log(error.message);
     }
   };
   return (
     <div className="px-7 h-4/6 md:w-5/6 mx-auto">
       <div className="text-center ">
-        <button className="px-8">
+        {/* <button className="px-8">
           <img className="h-1/2" src={googleBtn} alt="" />
-        </button>
+        </button> */}
+        <GoogleOAuth />
       </div>
       <div className="hrContainer my-4">
         <div className="web_dev">

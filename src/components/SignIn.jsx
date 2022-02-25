@@ -1,10 +1,18 @@
-import googleBtn from "../assets/png/googleBtn.png";
+// import googleBtn from "../assets/png/googleBtn.png";
+import GoogleOAuth from "./GoogleOAuth";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 // State and Router
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// Firebase auth
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// Toast Alerts
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// Google Provider Sign in
+
 function SignIn() {
   // Show and Hide password from an input
   const [hideShowPass, setHideShow] = useState(false);
@@ -28,12 +36,36 @@ function SignIn() {
       [e.target.name]: e.target.value,
     }));
   };
+  // Handle Submit ----------------------------- { onSubmit Function }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // 1. init auth
+      const auth = getAuth();
+      const userDetails = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userDetails.user) {
+        navigate("/home");
+      }
+    } catch (error) {
+      // console.log(error);
+      if (email === "" || password === "") {
+        toast.error("Please fill in all fields");
+      } else {
+        toast.error("Incorrect username or password");
+      }
+    }
+  };
   return (
     <div className="px-7 md:w-5/6 md:mx-auto m-auto mt-[5%] h-4/6  ">
       <div className="text-center pt-2">
-        <button className="px-8">
+        {/* <button className="px-8">
           <img className="h-1/2" src={googleBtn} alt="" />
-        </button>
+        </button> */}
+        <GoogleOAuth />
       </div>
       <div className="hrContainer my-4 md:mb-9">
         <div className="web_dev">
@@ -43,7 +75,7 @@ function SignIn() {
         </div>
       </div>
       {/* FORM COTNAIENR */}
-      <form className="">
+      <form className="" onSubmit={handleSubmit}>
         {/* INPUT EMAIL */}
         <label className="" htmlFor="email">
           Email
