@@ -65,7 +65,7 @@ function SignUp() {
       formDataClone.timestamp = serverTimestamp();
       await setDoc(doc(db, "users", user.uid), formDataClone);
       // Redirect to home page
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       if (email === "" || password === "") {
         toast.error("Please fill in all fields");

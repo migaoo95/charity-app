@@ -29,7 +29,7 @@ function GoogleOAuth() {
           timeStamp: serverTimestamp(),
         });
       }
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       toast.error("Cound not authorize with google");
     }

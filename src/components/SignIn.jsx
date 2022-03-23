@@ -48,7 +48,7 @@ function SignIn() {
         password
       );
       if (userDetails.user) {
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       // console.log(error);

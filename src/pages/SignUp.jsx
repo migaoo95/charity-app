@@ -37,7 +37,7 @@ function SignUp() {
             <small className="text-[#9ca3af] text-md">
               {sign
                 ? "Already have an account? "
-                : "Need a new account with us? "}
+                : "Need a new account click here! "}
               <span
                 onClick={() => {
                   setSign((prev) => {

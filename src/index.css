@@ -23,7 +23,17 @@ hr {
   border: 0.2px solid rgba(117, 117, 117, 0.5);
   /* border: 1px solid $regularbluespan; */
 }
-
+.navList li {
+  cursor: pointer;
+}
+.navList li:hover {
+  transition: all 0.3s;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+nav {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
+}
 /* #icon {
   color: red;
 } */
