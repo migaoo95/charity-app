@@ -25,7 +25,7 @@ function Listings() {
         // Create a query
         const q = query(
           listingRef,
-          // Use this to filter
+          //   Use this to filter
           //   where("type", "==", "clothing"),
           orderBy("listingTimeStamp", "desc"),
           limit(10)
