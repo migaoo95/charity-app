@@ -10,6 +10,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -103,12 +104,16 @@ function CreateListing() {
       toast.error("Images not uploaded");
       return;
     });
-    console.log(imageUrls);
-    setItemData({
+
+    const itemDataCopy = {
       ...itemData,
+      imageUrls,
       listingTimeStamp: serverTimestamp(),
-    });
-    const docRef = await addDoc(collection(db, "listing"), itemData);
+    };
+    delete itemDataCopy.images;
+    console.log(itemDataCopy);
+
+    const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
   };
   return (
     <div className="createListingContainer ">
