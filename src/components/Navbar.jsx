@@ -1,10 +1,15 @@
-import { AiOutlinePlus } from "react-icons/ai";
-import { FaUserNinja } from "react-icons/fa";
+import classes from "../styles/modules/Navbar.module.scss";
+// ------------------------- { Icons }
+import { ReactComponent as ShieldHeart } from "../assets/svg/shieldH.svg";
+import { ReactComponent as ShopIcon } from "../assets/svg/shopIcon.svg";
+import { ReactComponent as List } from "../assets/svg/listIcon.svg";
+import { ReactComponent as Plus } from "../assets/svg/squarePlus.svg";
+import { ReactComponent as Exit } from "../assets/svg/exitIcon.svg";
+import { ReactComponent as Cart } from "../assets/svg/cartIcon.svg";
 import { GiLoveHowl } from "react-icons/gi";
-import { ImExit } from "react-icons/im";
-// User details
+import { IoStorefront } from "react-icons/io";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+// ------------------------- { google Auth }
 import { getAuth } from "firebase/auth";
 function Navbar() {
   const auth = getAuth();
@@ -20,51 +25,44 @@ function Navbar() {
     navigate("/signup");
   };
   return (
-    <nav className="bg-white z-10 shadow-2xl mb-5 h-[50px] flex justify-between">
-      <div className="list-items w-3/6 flex  ">
-        <div className="logoBox my-auto">
-          <GiLoveHowl className="mx-auto" size="45px" />
+    <header className={classes.header}>
+      <div className={classes.header__main}>
+        <div className={classes.header__main__logo}>
+          <GiLoveHowl size={50} />
+          <p>Charity.io</p>
         </div>
+        <nav className={classes.header__main__nav}>
+          <ul className="">
+            <li className="">
+              <ShopIcon width={33} />
+              <span>Marketplace</span>
+            </li>
+            <li>
+              <ShieldHeart width={33} />
+              <span>Charity</span>
+            </li>
+            <li>
+              <List width={33} />
+              <span>
+                <Link to="/listing">Your Listings</Link>
+              </span>
+            </li>
+            <li>
+              <Plus width={33} />
+              <span>Create Listing</span>
+            </li>
+          </ul>
+        </nav>
+        <div className={classes.header__main__logcart}>
+          <button>
+            <span>Cart</span>
+            <Cart width={27} />
+          </button>
 
-        <ul className="navList flex w-4/6 mx-auto h-full font-bold items-center justify-around ">
-          <li className="sm:text-red-500 md:text-black">Home</li>
-          <li>Sale</li>
-          <li>Charities</li>
-
-          <li>
-            <Link to="/listing">YourListings</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="profile-listing w-3/6 flex  ">
-        <div className="profileContainer w-1/2  ">
-          <div className="flex h-full items-center justify-center cursor-pointer">
-            <FaUserNinja
-              className="border-2 border-[#F0750B]  p-1 rounded-3xl mr-2"
-              size="40px"
-            />
-            <p className="font-bold">Krystian</p>
-          </div>
-        </div>
-        <div className="line border-2 my-auto h-[80%] border-[#F0750B] rounded"></div>
-        <div className="buttonContainer w-1/2  flex justify-around border ">
-          <Link to="/create">
-            <button className="border-0 self-center text-sm text-black hover:text-white bg-[#F0750B] rounded-3xl flex font-bold px-3 py-1">
-              <span className="my-auto">Create Listing</span>
-              <AiOutlinePlus className=" " size="25px" />
-            </button>
-          </Link>
-          <div className="exit align-middle my-auto cursor-pointer">
-            <ImExit
-              size="30px"
-              onClick={onLogout}
-              className="hover:text-[#F0750B]"
-            />
-            {/* <span>Log out</span> */}
-          </div>
+          <Exit className={classes.exitBtn} width={33} />
         </div>
       </div>
-    </nav>
+    </header>
   );
 }
 

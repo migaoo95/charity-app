@@ -8,6 +8,7 @@ import Listings from "./pages/Listings";
 import CreateListing from "./pages/CreateListing";
 // Toast Alerts
 import { ToastContainer } from "react-toastify";
+import Leyout from "./components/Leyout";
 // Navbar
 import Navbar from "./components/Navbar";
 // user status
@@ -16,7 +17,7 @@ function App() {
   // get user Status
   const { loggedIn, checkingStatus } = useUserStatus();
   return (
-    <div className="signUpContainer  h-screen ">
+    <div className="mainContainer  h-screen ">
       <Router>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
@@ -30,9 +31,30 @@ function App() {
               </>
             }
           >
-            <Route path="/" element={<HomePage />} />
-            <Route path="/listing" element={<Listings />} />
-            <Route path="/create" element={<CreateListing />} />
+            <Route
+              path="/"
+              element={
+                <Leyout>
+                  <HomePage />
+                </Leyout>
+              }
+            />
+            <Route
+              path="/listing"
+              element={
+                <Leyout>
+                  <Listings />
+                </Leyout>
+              }
+            />
+            <Route
+              path="/create"
+              element={
+                <Leyout>
+                  <CreateListing />
+                </Leyout>
+              }
+            />
           </Route>
         </Routes>
       </Router>

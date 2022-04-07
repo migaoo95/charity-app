@@ -1,0 +1,81 @@
+@import "../varaibles.scss";
+// ------------------------ Navbar
+.header {
+  background: $nav-prod-bg;
+  width: 100%;
+  padding: 3px 1.5rem;
+  height: $navbar-height;
+  position: absolute;
+  border-radius: 0 0 20px 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  // ------------------------ Main Navbar Container
+  &__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // ------------------------ Logo Items Container
+    &__logo {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 25px;
+      p {
+        margin-left: 5px;
+      }
+    }
+    // ------------------------ List Items Container
+    &__nav {
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        display: flex;
+        li {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          fill: $nav-icons-fill;
+          font-weight: 600;
+          color: $nav-icons-fill;
+          margin-right: 25px;
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+    &__logcart {
+      display: flex;
+      width: 12%;
+      justify-content: space-between;
+      &:nth-child(2) {
+        fill: red;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        color: white;
+        fill: white;
+        background: $greenBtn;
+        border-radius: 30px;
+        padding: 5px 12px;
+        transition: 0.3s ease all;
+        &:hover {
+          background: $orangina;
+        }
+        span {
+          margin-right: 8px;
+        }
+      }
+      .exitBtn {
+        cursor: pointer;
+        fill: $nav-icons-fill;
+        transition: 0.3s ease all;
+        &:hover {
+          fill: $orangina;
+        }
+      }
+    }
+  }
+}
