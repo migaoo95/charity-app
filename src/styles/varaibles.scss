@@ -6,3 +6,20 @@ $main-bg: rgb(231, 232, 241);
 $nav-icons-fill: rgb(55, 69, 81);
 $greenBtn: rgb(74, 209, 126);
 $orangina: rgb(250, 93, 67);
+$nav-li-color: rgb(0, 137, 255);
+$shadow-nav: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px;
+
+@mixin breakpoint($point) {
+  @if $point == md {
+    // 768px
+    @media (max-width: 48em) {
+      @content;
+    }
+  }
+  @if $point == sm {
+    // 768px
+    @media (max-width: 972px) {
+      @content;
+    }
+  }
+}
