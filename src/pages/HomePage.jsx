@@ -14,6 +14,7 @@ import { db } from "../firebase-config";
 import Listings from "./Listings";
 import Item from "../components/Item";
 import classes from "../styles/modules/Home.module.scss";
+import { BiSearchAlt } from "react-icons/bi";
 function HomePage() {
   const [items, setAllItems] = useState();
   const auth = getAuth();
@@ -46,14 +47,24 @@ function HomePage() {
   }, []);
   return (
     <div className={classes.container}>
+      <p>All Products</p>
       <div className={classes.container__inputContainer}>
-        <p>All Products</p>
-        <input type="text" />
-        <select name="" id=""></select>
+        <div class={classes.inputWithIcon}>
+          <input type="text" placeholder="Your name" />
+          <span>
+            <BiSearchAlt size={25} />
+          </span>
+        </div>
+        <select name="" id="">
+          <option value="">Clothing</option>
+        </select>
       </div>
       <div
-        className={`${classes.container__itemContainer} m-auto grid grid-cols-3 `}
+        className={`${classes.container__itemContainer} m-auto grid grid-cols-3 gap-8 `}
       >
+        <Item />
+        <Item />
+        <Item />
         <Item />
         <Item />
         <Item />
