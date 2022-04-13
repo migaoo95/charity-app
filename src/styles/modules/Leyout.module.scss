@@ -1,8 +1,18 @@
 @import "../varaibles.scss";
-
-.mainContainer {
-  height: 100vh;
-  padding-top: 80px;
-  //   padding-top: 200px;
+.mainRoute {
+  max-width: 1500px;
+  margin: 0 auto;
   background: $main-bg;
+  height: 100%;
+  overflow: auto;
+}
+.mainLeyout {
+  max-width: 850px;
+  top: 0;
+  margin: 0 auto;
+  margin-top: 10px;
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 }

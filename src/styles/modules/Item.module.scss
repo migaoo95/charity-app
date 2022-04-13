@@ -1,0 +1,87 @@
+@import "../varaibles.scss";
+.item {
+  position: relative;
+  cursor: pointer;
+  background: white;
+  box-shadow: $shadow-item-bottom;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 0 10px;
+  margin-bottom: 15px;
+  //   max-width: 250px;
+  &__image {
+    width: 100%;
+    background-color: white;
+    height: 60%;
+    padding: 10px;
+
+    &__icon {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      right: 0;
+      top: 0;
+      margin: 4%;
+      padding: 7px;
+      border-radius: 20px;
+      background: $orangina;
+      transition: 0.2s ease-in-out box-shadow;
+      &:hover {
+        box-shadow: $shadow-oranginga;
+      }
+    }
+  }
+  &__desc {
+    width: 100%;
+    height: 40%;
+    background: $pinkish;
+    border-radius: 20px;
+    box-shadow: $shadow-item-bottom;
+    padding: 10px 10px;
+    p:nth-child(1) {
+      font-size: 12px;
+      font-weight: 600;
+      color: $text-grey;
+    }
+    p:nth-child(2) {
+      font-size: 15px;
+      font-weight: 600;
+      color: $nav-icons-fill;
+    }
+    p:nth-child(3) {
+      font-size: 13px;
+      font-weight: 600;
+      color: $text-grey;
+    }
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-size: 16px !important;
+        color: black !important;
+        span {
+          color: $text-grey;
+          margin-left: 5px;
+        }
+      }
+    }
+    button {
+      display: flex;
+      background: $button-bg;
+      padding: 4px 8px;
+      border-radius: 8px;
+      //   box-shadow: $button-shadow;
+      color: white;
+      fill: white !important;
+      transition: 0.2s ease-in-out box-shadow;
+      &:hover {
+        box-shadow: $button-shadow;
+      }
+      span {
+        margin-left: 5px;
+        font-size: 13px;
+      }
+    }
+  }
+}

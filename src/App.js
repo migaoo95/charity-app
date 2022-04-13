@@ -12,12 +12,14 @@ import Leyout from "./components/Leyout";
 // Navbar
 import Navbar from "./components/Navbar";
 // user status
-import { useUserStatus } from "../src/hooks/useUserStatus";
+// import { useUserStatus } from "../src/hooks/useUserStatus";
+import Charities from "./pages/Charities";
+import Cart from "./pages/Cart";
 function App() {
-  // get user Status
-  const { loggedIn, checkingStatus } = useUserStatus();
+  // // get user Status
+  // const { loggedIn, checkingStatus } = useUserStatus();
   return (
-    <div className="mainContainer  h-screen ">
+    <div className="mainContainer">
       <Router>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
@@ -26,35 +28,15 @@ function App() {
             path="/"
             element={
               <>
-                <Navbar />
                 <PrivateRoute />
               </>
             }
           >
-            <Route
-              path="/"
-              element={
-                <Leyout>
-                  <HomePage />
-                </Leyout>
-              }
-            />
-            <Route
-              path="/listing"
-              element={
-                <Leyout>
-                  <Listings />
-                </Leyout>
-              }
-            />
-            <Route
-              path="/create"
-              element={
-                <Leyout>
-                  <CreateListing />
-                </Leyout>
-              }
-            />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/listing" element={<Listings />} />
+            <Route path="/create" element={<CreateListing />} />
+            <Route path="/charities" element={<Charities />} />
+            <Route path="/cart" element={<Cart />} />
           </Route>
         </Routes>
       </Router>

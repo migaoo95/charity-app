@@ -1,14 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap");
 $open-sans: "Open Sans", sans-serif;
+// Navigation Vars
 $nav-prod-bg: rgb(248, 228, 230);
-$navbar-height: 60px;
+$navbar-height: 80px;
 $main-bg: rgb(231, 232, 241);
 $nav-icons-fill: rgb(55, 69, 81);
 $greenBtn: rgb(74, 209, 126);
 $orangina: rgb(250, 93, 67);
 $nav-li-color: rgb(0, 137, 255);
 $shadow-nav: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px;
+$shadow-item-bottom: rgba(0, 0, 0, 0.16) 0px 0px 6px;
 
+$nav-mobile-button-bg: rgba(230, 230, 230, 0.9);
+// Item Vars
+$pinkish: rgb(248, 228, 230);
+$shadow-oranginga: rgb(250, 93, 67) 0px 1px 10px;
+$text-grey: rgb(131, 131, 131);
+$button-bg: rgb(221, 151, 136);
+$button-shadow: rgb(221, 151, 136) 0px 0px 10px;
+// Breakepoints
 @mixin breakpoint($point) {
   @if $point == md {
     // 768px
