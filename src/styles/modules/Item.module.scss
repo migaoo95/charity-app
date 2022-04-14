@@ -6,6 +6,10 @@
   box-shadow: $shadow-item-bottom;
   border-radius: 20px;
   overflow: hidden;
+  transition: 0.2s ease-in-out box-shadow;
+  &:hover {
+    box-shadow: $shadow-blue;
+  }
   &__image {
     width: 100%;
     background-color: white;
