@@ -6,26 +6,8 @@ const options = [
   { value: "strawberry", label: "Strawberry" },
   { value: "vanilla", label: "Vanilla" },
 ];
-const customStyles = {
-  dropdownIndicator: (provided, state) => ({
-    ...provided,
-    color: state.isFocused ? "rgb(0, 137, 255)" : "",
-  }),
-  container: (provided, state) => ({
-    ...provided,
-    borderRadius: "20px",
-    width: "31%",
-    boxShadow: "rgba(0, 0, 0, 0.16) 0px 0px 6px",
-    border: "none",
-  }),
-  control: (provided, state) => ({
-    ...provided,
-    cursor: "pointer",
-    borderRadius: "20px",
-    width: "100%",
-    border: "none",
-    boxShadow: state.isFocused ? "0px 0px 6px rgb(0, 137, 255)" : "none",
-  }),
+const handleChange = () => {
+  // console.log("change");
 };
 const DropdownIndicator = (props) => {
   return (
@@ -34,14 +16,14 @@ const DropdownIndicator = (props) => {
     </components.DropdownIndicator>
   );
 };
-function SelectIn() {
+function SelectIn({ customStyles, options, handleChangee }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
     <>
       <Select
         defaultValue={selectedOption}
-        onChange={setSelectedOption}
+        onChange={handleChange}
         options={options}
         styles={customStyles}
         components={{ DropdownIndicator }}

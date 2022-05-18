@@ -1,0 +1,124 @@
+@import "../varaibles.scss";
+.formContainer {
+  max-height: 600px;
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
+  background: rgb(255, 255, 255);
+  border-radius: $formRadius;
+  padding: 20px 30px;
+  @include breakpoint(height) {
+    // background: red;
+    margin-top: 60px;
+    width: 95%;
+  }
+  @include breakpoint(sm) {
+    margin-top: 0 !important;
+    max-height: unset;
+    // position: relative;
+  }
+  // General input styles
+  input,
+  textarea {
+    cursor: pointer;
+    background: $inputBg;
+    border: 1px solid $inputBorder;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 15px;
+    box-shadow: $shadow-item-bottom;
+    margin-bottom: 15px;
+    // &:focus {
+    //   box-shadow: $shadow-blue;
+    //   cursor: text;
+    //   outline: none;
+    // }
+  }
+  &__headingContainer {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    hr {
+      width: 100%;
+      border: 1px solid $hrColor;
+      box-shadow: $shadow-item-bottom;
+    }
+  }
+  &__itemNameContainer {
+    input {
+      width: 100%;
+    }
+  }
+  &__priceSelect {
+    // margin-bottom: ;
+    display: flex;
+    justify-content: space-between;
+    @include breakpoint(sm) {
+      flex-direction: column;
+    }
+    &__priceInput {
+      input {
+        @include breakpoint(sm) {
+          width: 100%;
+        }
+      }
+    }
+    &__select {
+      margin-left: 10%;
+      width: 100%;
+      @include breakpoint(sm) {
+        margin: 0;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  &__desc {
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+  }
+  &__fileInputContainer {
+    margin-bottom: 20px;
+    &__customFileInput {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: $inputBg;
+      border: 1px solid $inputBorder;
+      border-radius: 12px;
+      width: 100%;
+      height: 100px;
+      border: 2px dashed $hrColor;
+    }
+    label {
+      cursor: pointer;
+      color: $text-grey;
+      span {
+        color: $nav-li-color;
+        text-decoration: underline;
+      }
+    }
+    input {
+      display: none;
+    }
+  }
+  &__buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      &:nth-child(1) {
+        color: $nav-icons-fill;
+        font-weight: 600;
+        margin-right: 25px;
+      }
+      &:nth-child(2) {
+        color: white;
+        background: $blueBtn;
+        padding: 10px 45px;
+        border-radius: 7px;
+      }
+    }
+  }
+}

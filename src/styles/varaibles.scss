@@ -10,7 +10,6 @@ $orangina: rgb(250, 93, 67);
 $nav-li-color: rgb(0, 137, 255);
 $shadow-nav: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px;
 $shadow-item-bottom: rgba(0, 0, 0, 0.16) 0px 0px 6px;
-
 $nav-mobile-button-bg: rgba(230, 230, 230, 0.9);
 // Item Vars
 $pinkish: rgb(248, 228, 230);
@@ -19,6 +18,13 @@ $shadow-blue: rgb(0, 137, 255) 0px 1px 10px;
 $text-grey: rgb(131, 131, 131);
 $button-bg: rgb(221, 151, 136);
 $button-shadow: rgb(221, 151, 136) 0px 0px 10px;
+//Form
+$inputBg: rgb(246, 250, 253);
+$inputBorder: rgba(80, 80, 80, 0.3);
+$inputPadding: 5px;
+$formRadius: 15px;
+$hrColor: rgb(151, 149, 253);
+$blueBtn: rgb(85, 156, 248);
 // Breakepoints
 @mixin breakpoint($point) {
   @if $point == md {
@@ -30,6 +36,18 @@ $button-shadow: rgb(221, 151, 136) 0px 0px 10px;
   @if $point == sm {
     // 768px
     @media (max-width: 972px) {
+      @content;
+    }
+  }
+  @if $point == xs {
+    // 768px
+    @media (max-width: 760px) {
+      @content;
+    }
+  }
+  @if $point == height {
+    // 768px
+    @media (max-height: 800px) {
       @content;
     }
   }
