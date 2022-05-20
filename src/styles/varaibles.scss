@@ -25,6 +25,9 @@ $inputPadding: 5px;
 $formRadius: 15px;
 $hrColor: rgb(151, 149, 253);
 $blueBtn: rgb(85, 156, 248);
+// Charity Items
+$logoBtn: #8bdd88;
+$textDesc: #6e6e6e;
 // Breakepoints
 @mixin breakpoint($point) {
   @if $point == md {

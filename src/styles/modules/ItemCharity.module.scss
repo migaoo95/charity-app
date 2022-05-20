@@ -1,0 +1,97 @@
+@import "../varaibles.scss";
+
+.container {
+  width: 100%;
+  background: $pinkish;
+  border-radius: 15px;
+  box-shadow: $shadow-item-bottom;
+  transition: transform 200ms ease-in-out;
+  cursor: pointer;
+  &__loadingBarDiv {
+    display: flex;
+    justify-content: center;
+  }
+  &:hover {
+    position: relative;
+    transform: translateY(-5px);
+    // transition-duration: 2s;
+  }
+  &__topContainer {
+    min-height: 90px !important;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+
+    &__logo {
+      background-color: $logoBtn;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: $shadow-item-bottom;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      font-size: 25px;
+      img {
+        border-radius: 14px;
+        box-shadow: $shadow-item-bottom;
+      }
+    }
+    &__text {
+      margin: 0 10px;
+      span {
+        color: $nav-icons-fill;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      h1 {
+        font-size: 14px;
+        color: $textDesc;
+      }
+    }
+    &__value {
+      color: $nav-icons-fill;
+      font-size: 16px;
+      font-weight: 600;
+      margin-left: auto;
+    }
+  }
+  &__bottomContainer {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: white;
+    border-radius: inherit;
+    box-shadow: $shadow-item-bottom;
+    &__desc {
+      font-size: 14px;
+      &__mainDesc {
+      }
+      &__links {
+        display: flex;
+        justify-content: space-around;
+        a {
+          text-decoration: underline;
+          color: blue;
+        }
+        img {
+          width: 30px;
+        }
+      }
+    }
+    &__buttonContainer {
+      &__btn {
+        background: $orangina;
+        box-shadow: $shadow-item-bottom;
+        padding: 12px;
+        border-radius: 50px;
+        cursor: pointer;
+        &:hover {
+          box-shadow: $shadow-oranginga;
+        }
+      }
+    }
+  }
+}
