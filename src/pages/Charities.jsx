@@ -67,19 +67,18 @@ function Charities() {
         <SearchBar />
         <SelectIn customStyles={customStyles} />
       </InputsContainer>
-      <div className="m-auto grid grid-cols-2 gap-6 ">
+      <div
+        className={
+          !loading ? "m-auto grid grid-cols-2 gap-6 " : "flex justify-center"
+        }
+      >
         {/* <Charity /> */}
         {!loading ? (
           items.map((item) => {
             return <Charity key={item.id} data={item} />;
           })
         ) : (
-          <ClipLoader
-            className="m-auto relative"
-            color={`#559CF8`}
-            loading={loading}
-            size={150}
-          />
+          <ClipLoader color={`#559CF8`} loading={loading} size={150} />
         )}
       </div>
     </div>

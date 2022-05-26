@@ -14,6 +14,7 @@ import Navbar from "./components/Navbar";
 // user status
 // import { useUserStatus } from "../src/hooks/useUserStatus";
 import Charities from "./pages/Charities";
+import Charity from "./pages/Charity";
 import Cart from "./pages/Cart";
 function App() {
   // // get user Status
@@ -36,6 +37,7 @@ function App() {
             <Route path="/listing" element={<Listings />} />
             <Route path="/create" element={<CreateListing />} />
             <Route path="/charities" element={<Charities />} />
+            <Route path="/charities/:itemId" element={<Charity />} />
             <Route path="/cart" element={<Cart />} />
           </Route>
         </Routes>

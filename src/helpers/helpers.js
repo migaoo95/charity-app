@@ -1,3 +1,4 @@
+// Splits charity name into two letters used if API doesnt provides logo
 export const spliter = (name) => {
   let newStr = "";
   let splitL = name.split(" ");
@@ -7,4 +8,19 @@ export const spliter = (name) => {
     }
   });
   return newStr;
+};
+// Shortens a charity descryption to fit card
+export const stringShortener = (str, length) => {
+  return str.length > length
+    ? str.substr(0, length - 1).toLowerCase() + "..."
+    : str;
+};
+// Shortens url string to fit card
+export const urlShortener = (url) => {
+  let newUrl = url.replace(/^http:\/\//, "");
+  newUrl = newUrl.substring(
+    0,
+    newUrl.indexOf("/") !== -1 ? newUrl.indexOf("/") : newUrl.length
+  );
+  return newUrl;
 };
