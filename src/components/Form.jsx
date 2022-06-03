@@ -24,6 +24,19 @@ import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 function Form() {
+  // --------------------- Validators
+  // let nameValidator = itemData.name.length > 10 && itemData.name.length < 20;
+  const validator = (param, target) => {
+    if (target === "name" && param.length >= 10 && param.length <= 50) {
+      return true;
+    } else if (target === "desc" && param.length >= 10 && param.length <= 150) {
+      return true;
+    } else {
+      return false;
+    }
+
+    // return param.length > 10 ? true : false;
+  };
   const [itemData, setItemData] = useState({
     name: "",
     type: "",
@@ -112,19 +125,22 @@ function Form() {
       toast.error("Images not uploaded");
       return;
     });
+    if (validator(itemData.name, "name") && validator(itemData.desc, "desc")) {
+      const itemDataCopy = {
+        ...itemData,
+        imageUrls,
+        listingTimeStamp: serverTimestamp(),
+      };
+      delete itemDataCopy.images;
+      console.log(itemDataCopy);
 
-    const itemDataCopy = {
-      ...itemData,
-      imageUrls,
-      listingTimeStamp: serverTimestamp(),
-    };
-    delete itemDataCopy.images;
-    console.log(itemDataCopy);
-
-    // eslint-disable-next-line no-unused-vars
-    const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
-    clearFields();
-    toast.success("Listing Created");
+      // eslint-disable-next-line no-unused-vars
+      const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
+      clearFields();
+      toast.success("Listing Created");
+    } else {
+      toast.error("sorry length");
+    }
   };
   const clearFields = () => {
     setItemData({
@@ -182,7 +198,7 @@ function Form() {
       </div>
       <div className={classes.formContainer__priceSelect}>
         <div className={classes.formContainer__priceSelect__priceInput}>
-          <p>Price</p>
+          <p>Price £</p>
           <input
             onChange={handleChange}
             value={price}

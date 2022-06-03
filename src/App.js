@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar";
 import Charities from "./pages/Charities";
 import Charity from "./pages/Charity";
 import Cart from "./pages/Cart";
+import ProductPage from "./pages/ProductPage";
 function App() {
   // // get user Status
   // const { loggedIn, checkingStatus } = useUserStatus();
@@ -34,6 +35,7 @@ function App() {
             }
           >
             <Route path="/" element={<HomePage />} />
+            <Route path="/:productId" element={<ProductPage />} />
             <Route path="/listing" element={<Listings />} />
             <Route path="/create" element={<CreateListing />} />
             <Route path="/charities" element={<Charities />} />

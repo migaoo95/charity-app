@@ -8,8 +8,10 @@ import { CgArrowRightR } from "react-icons/cg";
 import { spliter, urlShortener, stringShortener } from "../helpers/helpers";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 function Charity({ data }) {
-  console.log(data);
+  const { v4: uuidv4 } = require("uuid");
+  // console.log(data);
   let logo;
   if (data.image) {
     logo = true;
@@ -20,9 +22,9 @@ function Charity({ data }) {
     logo = false;
   }
 
-  // useEffect(() => {
-  //   urlShortener("http://ericwright.co.uk/charitable-trust/");
-  // }, []);
+  useEffect(() => {
+    // console.log(data);
+  }, []);
   return (
     <div className={classes.container}>
       <div className={classes.container__topContainer}>
@@ -67,6 +69,7 @@ function Charity({ data }) {
                     if (social.platform === "facebook") {
                       return (
                         <a
+                          key={uuidv4()}
                           target="_blank"
                           rel="noreferrer"
                           href={`https://www.facebook.com/${social.handle}`}
@@ -77,6 +80,7 @@ function Charity({ data }) {
                     } else if (social.platform === "instagram") {
                       return (
                         <a
+                          key={uuidv4()}
                           target="_blank"
                           rel="noreferrer"
                           href={`https://www.instagram.com/${social.handle}`}
@@ -87,6 +91,7 @@ function Charity({ data }) {
                     } else if (social.platform === "twitter") {
                       return (
                         <a
+                          key={uuidv4()}
                           target="_blank"
                           rel="noreferrer"
                           href={`https://www.twitter.com/${social.handle}`}

@@ -3,10 +3,13 @@
   @include breakpoint(sm) {
     padding: 0 30px;
   }
-  p {
-    font-size: 25px;
-    font-weight: 600;
+  &__text {
+    p {
+      font-size: 25px;
+      font-weight: 600;
+    }
   }
+
   &__loadingBarDiv {
     display: flex;
     justify-content: center;

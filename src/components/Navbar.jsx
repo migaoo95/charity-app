@@ -13,7 +13,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 // ------------------------- { google Auth }
 import { getAuth } from "firebase/auth";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 function Navbar() {
+  // ---------------------- { getParams }
+  const { itemId } = useParams();
   const auth = getAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,10 +36,14 @@ function Navbar() {
   };
   // Active class function
   const activeClassPath = (route) => {
-    if (route === location.pathname) {
+    if (
+      route === location.pathname ||
+      `${route}/${itemId}` === location.pathname
+    ) {
       return true;
     }
   };
+
   return (
     <div className="">
       <header className={`${classes.header} max-w-[1500px] m-auto`}>

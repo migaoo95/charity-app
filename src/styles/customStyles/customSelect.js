@@ -41,5 +41,9 @@ export const customStylesCreate = {
     background: "rgb(246, 250, 253)",
     padding: "1px",
     boxShadow: state.isFocused ? "0px 0px 6px rgb(0, 137, 255)" : "none",
+    transition: "ease-in-out transform 300ms",
+    "&:hover": {
+      transform: "scale(1.02)",
+    },
   }),
 };

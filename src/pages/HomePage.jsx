@@ -78,7 +78,10 @@ function HomePage() {
   }, []);
   return (
     <div className={classes.container}>
-      <p>All Products</p>
+      <div className={classes.container__text}>
+        <p>All Products</p>
+      </div>
+
       <InputsContainer>
         <SearchBar />{" "}
         <SelectIn options={typeArrState} customStyles={customStyles} />
@@ -89,7 +92,14 @@ function HomePage() {
       >
         {!loading ? (
           items.map((item) => {
-            return <Item key={item.id} data={item.data} />;
+            return (
+              <Item
+                key={item.id}
+                id={item.id}
+                data={item.data}
+                allListings={true}
+              />
+            );
           })
         ) : (
           <div className={`${classes.container__loadingBarDiv} col-span-full`}>

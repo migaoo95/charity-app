@@ -6,36 +6,30 @@
   box-shadow: $shadow-item-bottom;
   border-radius: 20px;
   overflow: hidden;
-  transition: 0.2s ease-in-out box-shadow;
-  // max-width: 280px;
+  transition: 0.2s ease-in-out transform;
+  // max-height: 320px;
+  width: 260px;
+  // height: 320px;
+  display: flex;
+  flex-direction: column;
   @include breakpoint(xs) {
-    // max-width: 300px;
   }
   &:hover {
-    box-shadow: $shadow-blue;
+    transform: translateY(-5px);
   }
   &__image {
-    // width: 100%;
     background-color: white;
-    // height: 65%;
     padding: 10px;
+    height: 63%;
+    height: 200px;
     @include breakpoint(xs) {
-      // padding: 0;
     }
     img {
-      // border: 3px solid red;
-      // margin-bottom: 20px;
-      // position: relative;
-      // margin-bottom: 30px;
+      border-radius: 14px;
+      height: 100%;
+      width: 100%;
       @include breakpoint(xs) {
-        // position: relative;
-        // width: 80%;
-        // z-index: 0;
-        // margin: 0 auto;
       }
-      // @include breakpoint(xs) {
-      //   margin-bottom: 10%;
-      // }
     }
     &__icon {
       position: absolute;
@@ -47,91 +41,124 @@
       padding: 7px;
       border-radius: 20px;
       background: $orangina;
-      transition: 0.2s ease-in-out box-shadow;
+      transition: 0.2s ease-in-out all;
       @include breakpoint(xs) {
         display: none;
       }
       &:hover {
         box-shadow: $shadow-oranginga;
+        transform: scale(1.1);
       }
     }
   }
 
   &__desc {
-    // width: 100%;
-    // height: 35%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 37%;
     background: $pinkish;
     border-radius: 20px;
     box-shadow: $shadow-item-bottom;
-    padding: 10px 10px;
-
-    @include breakpoint(xs) {
-      // padding: 7px;
-    }
-    p:nth-child(1) {
-      font-size: 12px;
-      font-weight: 600;
-      color: $text-grey;
-    }
-    p:nth-child(2) {
-      font-size: 15px;
-      font-weight: 600;
-      color: $nav-icons-fill;
-      @include breakpoint(xs) {
-        font-size: 12px;
+    height: 112px;
+    padding: 10px 15px;
+    &__info {
+      h1 {
+        font-size: 14px;
+        font-weight: 600;
+        span {
+          font-weight: 300;
+        }
+        // margin-bottom: 3px;
+      }
+      p {
+        font-size: 14px;
+        font-weight: 600;
       }
     }
-    p:nth-child(3) {
-      font-size: 13px;
-      font-weight: 600;
-      color: $text-grey;
-      @include breakpoint(xs) {
-        display: none;
-      }
+    // @include breakpoint(xs) {
+    //   // padding: 7px;
+    // }
+    // p:nth-child(1) {
+    //   font-size: 14px;
+    //   font-weight: 600;
+    //   color: $text-grey;
+    // }
+    // p:nth-child(2) {
+    //   font-size: 15px;
+    //   font-weight: 600;
+    //   color: $nav-icons-fill;
+    //   @include breakpoint(xs) {
+    //     font-size: 12px;
+    //   }
+    // }
+    // p:nth-child(3) {
+    //   font-size: 14px;
+    //   font-weight: 600;
+    //   position: absolute;
+    //   top: 50px;
+    //   color: red;
+    //   @include breakpoint(xs) {
+    //     display: none;
+    //   }
+    // }
+    &__priceCartUser {
+      flex-direction: column;
     }
-    &__priceCart {
+    &__priceCart,
+    &__priceCartUser {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      @include breakpoint(xs) {
-        // justify-content: space-around;
-      }
-      &__likeCartDiv {
+      &__price {
         display: flex;
-        justify-content: center;
+        align-items: center;
 
-        @include breakpoint(xs) {
-          // justify-content: space-around;
-          width: 50%;
-        }
-        &__likeIcon {
-          display: none !important;
-          padding: 6px;
-          border-radius: 20px;
-          background: $orangina;
-          margin-right: 10%;
-          @include breakpoint(xs) {
-            display: block !important;
+        h1 {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 600;
+          span {
+            font-size: 17px;
+            font-weight: 300;
+            margin-left: 8px;
           }
         }
       }
+      @include breakpoint(xs) {
+      }
 
-      // &__likeIcon {
-      //   display: flex;
-      //   border: 2px solid green;
-      //   width: 50%;
-      // }
-      p {
-        font-size: 16px !important;
-        color: black !important;
+      &__likeCartDiv {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
         @include breakpoint(xs) {
-          font-size: 13px !important;
+          width: 50%;
         }
-        span {
-          color: $text-grey;
-          margin-left: 5px;
+        // &__likeIcon {
+        //   display: none !important;
+        //   padding: 6px;
+        //   border-radius: 20px;
+        //   background: $orangina;
+        //   margin-right: 10%;
+        //   @include breakpoint(xs) {
+        //     display: block !important;
+        //   }
+        // }
+        p {
+          font-size: 16px !important;
+          color: black !important;
           @include breakpoint(xs) {
             font-size: 13px !important;
+          }
+          span {
+            color: $text-grey;
+            margin-left: 5px;
+            @include breakpoint(xs) {
+              font-size: 13px !important;
+            }
           }
         }
       }
@@ -144,13 +171,14 @@
       border-radius: 8px;
       color: white;
       fill: white !important;
-      transition: 0.2s ease-in-out box-shadow;
+      transition: 0.2s ease-in-out all;
       @include breakpoint(xs) {
         border-radius: 20px;
         padding: 6px;
       }
       &:hover {
         box-shadow: $button-shadow;
+        transform: scale(1.03);
       }
       span {
         margin-left: 5px;

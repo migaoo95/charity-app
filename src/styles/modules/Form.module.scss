@@ -28,11 +28,14 @@
     font-size: 15px;
     box-shadow: $shadow-item-bottom;
     margin-bottom: 15px;
-    // &:focus {
-    //   box-shadow: $shadow-blue;
-    //   cursor: text;
-    //   outline: none;
-    // }
+    transition: ease-in-out all 300ms;
+    &:hover {
+      transform: scale(1.02);
+    }
+    &:focus {
+      transform: scale(1.02);
+      outline: $shadow-blue;
+    }
   }
   &__headingContainer {
     font-size: 22px;
@@ -91,6 +94,10 @@
       width: 100%;
       height: 100px;
       border: 2px dashed $hrColor;
+      transition: ease-in-out transform 300ms;
+      &:hover {
+        transform: scale(1.02);
+      }
     }
     label {
       cursor: pointer;
@@ -107,17 +114,30 @@
   &__buttonContainer {
     display: flex;
     justify-content: flex-end;
+
     button {
+      box-sizing: border-box;
+      transition: ease-in-out all 250ms;
       &:nth-child(1) {
         color: $nav-icons-fill;
         font-weight: 600;
-        margin-right: 25px;
+        margin-right: 5px;
+        padding: 0 20px;
+        border-radius: 7px;
+
+        &:hover {
+          box-shadow: $shadow-item-bottom;
+          background: lightgray;
+        }
       }
       &:nth-child(2) {
         color: white;
         background: $blueBtn;
         padding: 10px 45px;
         border-radius: 7px;
+        &:hover {
+          box-shadow: $shadow-blue;
+        }
       }
     }
   }
