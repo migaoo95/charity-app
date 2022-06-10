@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 function Navbar() {
   // ---------------------- { getParams }
-  const { itemId } = useParams();
+  const { itemId, productId } = useParams();
   const auth = getAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,7 +38,8 @@ function Navbar() {
   const activeClassPath = (route) => {
     if (
       route === location.pathname ||
-      `${route}/${itemId}` === location.pathname
+      `${route}/${itemId}` === location.pathname ||
+      `${route}/${productId}` === location.pathname
     ) {
       return true;
     }
@@ -73,7 +74,9 @@ function Navbar() {
               <li
                 onClick={() => navigate("/")}
                 className={
-                  activeClassPath("/") ? classes.header__main__nav__active : ""
+                  activeClassPath("/") || location.pathname === `/${productId}`
+                    ? classes.header__main__nav__active
+                    : ""
                 }
               >
                 <div>
@@ -138,6 +141,11 @@ function Navbar() {
           </nav>
           <div className={classes.header__main__logcart}>
             <button
+              className={
+                location.pathname === "/cart"
+                  ? classes.header__main__logcart__active
+                  : ""
+              }
               onClick={() => {
                 if (!menuToggle) {
                   handleMenuToggle();

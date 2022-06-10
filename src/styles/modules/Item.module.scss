@@ -7,12 +7,12 @@
   border-radius: 20px;
   overflow: hidden;
   transition: 0.2s ease-in-out transform;
-  // max-height: 320px;
-  width: 260px;
-  // height: 320px;
+  // width: 260px;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   @include breakpoint(xs) {
+    max-width: 230px;
   }
   &:hover {
     transform: translateY(-5px);
@@ -20,15 +20,20 @@
   &__image {
     background-color: white;
     padding: 10px;
-    height: 63%;
+    margin: 0 auto;
+    // height: 63%;
     height: 200px;
     @include breakpoint(xs) {
+      max-height: 150px;
+      // height: 150px;
+      // width: 200px;
     }
     img {
       border-radius: 14px;
       height: 100%;
       width: 100%;
       @include breakpoint(xs) {
+        margin: 0 auto;
       }
     }
     &__icon {
@@ -42,7 +47,7 @@
       border-radius: 20px;
       background: $orangina;
       transition: 0.2s ease-in-out all;
-      @include breakpoint(xs) {
+      @include breakpoint(sm) {
         display: none;
       }
       &:hover {
@@ -57,77 +62,105 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 37%;
     background: $pinkish;
     border-radius: 20px;
     box-shadow: $shadow-item-bottom;
-    height: 112px;
     padding: 10px 15px;
+    @include breakpoint(sm) {
+      padding: 5px 7px;
+      border-radius: 0;
+    }
     &__info {
-      h1 {
-        font-size: 14px;
-        font-weight: 600;
-        span {
-          font-weight: 300;
-        }
-        // margin-bottom: 3px;
-      }
+      h1,
       p {
         font-size: 14px;
         font-weight: 600;
+        @include breakpoint(sm) {
+          font-size: 12px;
+        }
+        span {
+          font-weight: 300;
+        }
       }
     }
-    // @include breakpoint(xs) {
-    //   // padding: 7px;
-    // }
-    // p:nth-child(1) {
-    //   font-size: 14px;
-    //   font-weight: 600;
-    //   color: $text-grey;
-    // }
-    // p:nth-child(2) {
-    //   font-size: 15px;
-    //   font-weight: 600;
-    //   color: $nav-icons-fill;
-    //   @include breakpoint(xs) {
-    //     font-size: 12px;
-    //   }
-    // }
-    // p:nth-child(3) {
-    //   font-size: 14px;
-    //   font-weight: 600;
-    //   position: absolute;
-    //   top: 50px;
-    //   color: red;
-    //   @include breakpoint(xs) {
-    //     display: none;
-    //   }
-    // }
     &__priceCartUser {
       flex-direction: column;
+      margin-top: 3px;
+      @include breakpoint(sm) {
+        display: none !important;
+      }
     }
+    // &__priceCart {
+    //   &__price {
+    //     &__mobileBtn {
+    //       display: none !important;
+    //       display: flex;
+    //       justify-content: space-around;
+    //       width: 50%;
+    //       @include breakpoint(sm) {
+    //         display: flex !important;
+    //       }
+    //     }
+    //   }
+    // }
     &__priceCart,
     &__priceCartUser {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: space-around;
+      align-items: flex-start;
+      flex-direction: row;
       &__price {
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
+        &__mobileBtn {
+          display: none !important;
+          justify-content: space-around;
+          width: 50% !important;
+          @include breakpoint(sm) {
+            display: flex !important;
+          }
+        }
+
+        button {
+          &:hover {
+            box-shadow: $button-shadow !important;
+          }
+        }
         h1 {
           display: flex;
           align-items: center;
           font-size: 14px;
           font-weight: 600;
+          @include breakpoint(mobile) {
+            font-size: 12px;
+          }
           span {
             font-size: 17px;
             font-weight: 300;
             margin-left: 8px;
+            @include breakpoint(mobile) {
+              font-size: 15px;
+            }
+            @include breakpoint(mobileXs) {
+              // font-size: 15px;
+            }
           }
         }
-      }
-      @include breakpoint(xs) {
+        &__btns {
+          display: flex;
+          justify-content: space-around;
+          width: 50%;
+        }
+        &__hiddenBtn {
+          display: none;
+          margin-left: 5px;
+          @include breakpoint(sm) {
+            display: block;
+            align-self: flex-end;
+          }
+        }
       }
 
       &__likeCartDiv {
@@ -137,16 +170,6 @@
         @include breakpoint(xs) {
           width: 50%;
         }
-        // &__likeIcon {
-        //   display: none !important;
-        //   padding: 6px;
-        //   border-radius: 20px;
-        //   background: $orangina;
-        //   margin-right: 10%;
-        //   @include breakpoint(xs) {
-        //     display: block !important;
-        //   }
-        // }
         p {
           font-size: 16px !important;
           color: black !important;
@@ -163,27 +186,51 @@
         }
       }
     }
+    &__priceCart {
+      align-self: flex-start;
+    }
     button {
-      // margin-left: 10%;
       display: flex;
+      align-items: center;
       background: $button-bg;
       padding: 4px 8px;
       border-radius: 8px;
       color: white;
       fill: white !important;
       transition: 0.2s ease-in-out all;
-      @include breakpoint(xs) {
+      * {
+        margin: 0 auto;
+      }
+      span {
+        min-width: 60px;
+      }
+      @include breakpoint(sm) {
         border-radius: 20px;
         padding: 6px;
+        min-width: 32px;
+        min-height: 32px;
+      }
+      @include breakpoint(mobile) {
+        padding: 5px;
+      }
+      &:nth-child(1) {
+        &:hover {
+          box-shadow: $shadow-red;
+        }
+      }
+      &:nth-child(2) {
+        &:hover {
+          box-shadow: $shadow-green;
+        }
       }
       &:hover {
-        box-shadow: $button-shadow;
+        // box-shadow: $button-shadow;
         transform: scale(1.03);
       }
       span {
-        margin-left: 5px;
+        // margin-left: 5px;
         font-size: 13px;
-        @include breakpoint(xs) {
+        @include breakpoint(sm) {
           display: none;
         }
       }

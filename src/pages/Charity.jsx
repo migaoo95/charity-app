@@ -8,7 +8,6 @@ function Charity() {
   const [charityData, setCharityData] = useState();
   const [loading, setLoading] = useState(true);
   const { itemId } = useParams();
-  // const id = "1149740";
   useEffect(() => {
     console.log(itemId, "id");
     getSingleCharity(QGL_SINGLE_QUERY, { id: itemId })

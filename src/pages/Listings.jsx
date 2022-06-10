@@ -6,6 +6,8 @@ import { customStyles } from "../styles/customStyles/customSelect";
 import classes from "../styles/modules/Listing.module.scss";
 import ClipLoader from "react-spinners/ClipLoader";
 import Item from "../components/Item";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FaRegEdit } from "react-icons/fa";
 // ---------- Firebase
 import { getAuth } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -43,10 +45,21 @@ function Listings() {
       <InputsContainer>
         <SearchBar /> <SelectIn customStyles={customStyles} />
       </InputsContainer>
-      <div className="m-auto grid grid-cols-2  md:grid-cols-3 gap-8">
+      <div className="m-auto grid grid-cols-2 sm:grid-cols-3  md:grid-cols-3 gap-2 md:gap-8 sm:gap-3">
         {!loading ? (
           items.map((item) => {
-            return <Item data={item.data} id={item.id} allListings={false} />;
+            return (
+              <Item
+                data={item.data}
+                id={item.id}
+                allListings={false}
+                bg={"#E21313"}
+                icon={[
+                  <AiOutlineDelete size={20} />,
+                  <FaRegEdit size={20} fill="white" />,
+                ]}
+              />
+            );
           })
         ) : (
           <div>

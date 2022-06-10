@@ -6,10 +6,11 @@ import boxarrow from "../assets/png/boxarrow.png";
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { CgArrowRightR } from "react-icons/cg";
 import { spliter, urlShortener, stringShortener } from "../helpers/helpers";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+// import { useWindowSize } from "../hooks/useWindowSize";
+import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-function Charity({ data }) {
+function Charity({ data, size }) {
   const { v4: uuidv4 } = require("uuid");
   // console.log(data);
   let logo;
@@ -22,11 +23,20 @@ function Charity({ data }) {
     logo = false;
   }
 
-  useEffect(() => {
-    // console.log(data);
-  }, []);
+  const navigate = useNavigate();
+  //
+
   return (
-    <div className={classes.container}>
+    <div
+      onClick={
+        size.width <= 969
+          ? () => {
+              navigate(`/charities/${data.id}`);
+            }
+          : null
+      }
+      className={classes.container}
+    >
       <div className={classes.container__topContainer}>
         <div className={classes.container__topContainer__logo}>
           {logo ? (
@@ -47,7 +57,9 @@ function Charity({ data }) {
       <div className={classes.container__bottomContainer}>
         <div className={classes.container__bottomContainer__desc}>
           <div className={classes.container__bottomContainer__desc__mainDesc}>
-            <h1>{stringShortener(data.objectives, 105)}</h1>
+            <h1>
+              {stringShortener(data.objectives, size.width < 936 ? 100 : 115)}
+            </h1>
           </div>
           <div className={classes.container__bottomContainer__desc__links}>
             <div
@@ -101,7 +113,7 @@ function Charity({ data }) {
                       );
                     }
                   })
-                : console.log("empty social")}
+                : ""}
               {/* <img src={facebook} alt="" />
               <img src={insta} alt="" />
               <img src={twitter} alt="" /> */}

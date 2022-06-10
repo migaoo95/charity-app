@@ -1,21 +1,13 @@
 import classes from "../styles/modules/ProductPage.module.scss";
-import blueT from "../assets/jpeg/blueT.jpeg";
-import gShirt from "../assets/jpeg/gShirt.jpeg";
-import shirt from "../assets/jpeg/shirt.jpg";
 import { AiFillHeart } from "react-icons/ai";
-// import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // Firebase
 import { db } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
+import BackButton from "../components/buttons/BackButton";
 function ProductPage() {
   const { productId } = useParams();
-  const [images, setImages] = useState([
-    { image: blueT },
-    { image: gShirt },
-    { image: shirt },
-  ]);
   const [item, setItem] = useState({});
   useEffect(() => {
     const fetchProduct = async () => {
@@ -50,6 +42,9 @@ function ProductPage() {
 
   return (
     <div className={classes.container}>
+      <div className={classes.container__bckBtn}>
+        <BackButton to="/" />
+      </div>
       <div className={classes.container__sliderContainer}>
         {/* <div className={classes.container__sliderContainer__leftBtn}>
           <IoIosArrowBack color="white" size={35} />

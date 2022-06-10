@@ -6,10 +6,14 @@ import twitter from "../assets/png/twt.png";
 import facebook from "../assets/png/fcb.png";
 import instagram from "../assets/png/insta.png";
 import { v4 as uuidv4 } from "uuid";
+import BackButton from "./buttons/BackButton";
 function PageCharitComp({ data }) {
   const { v4: uuidv4 } = require("uuid");
   return (
     <div className={classes.container}>
+      <div className={classes.container__bckBtn}>
+        <BackButton to="/charities" />
+      </div>
       <div className={classes.container__firstContainer}>
         <div className={classes.container__firstContainer__logo}>
           {data.image ? (

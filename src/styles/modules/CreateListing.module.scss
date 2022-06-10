@@ -1,8 +1,9 @@
 @import "../varaibles.scss";
 .container {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+  top: 50px;
+  // left: 0;
+  // border: 2px solid red;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -10,5 +11,8 @@
   width: 100%;
   @include breakpoint(sm) {
     position: relative !important;
+  }
+  @include breakpoint(height) {
+    top: -50px !important;
   }
 }

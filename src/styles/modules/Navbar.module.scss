@@ -189,6 +189,10 @@
       // width: 100%;
       align-items: center;
       justify-content: space-between;
+      &__active {
+        // border: 3px solid $blueBtn;
+        box-shadow: $shadow-blue;
+      }
       @include breakpoint(sm) {
         right: 0;
         position: absolute;
@@ -209,12 +213,19 @@
         margin-right: 30px;
         @include breakpoint(sm) {
           margin-right: 10px;
+          background: none;
+          color: $nav-icons-fill;
+          fill: $nav-icons-fill;
+          box-shadow: none;
+          span {
+            display: none;
+          }
           &:hover {
-            background: $greenBtn;
+            // background: $greenBtn;
           }
         }
         &:hover {
-          background: $orangina;
+          box-shadow: $shadow-blue;
         }
         span {
           margin-right: 8px;

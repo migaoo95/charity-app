@@ -1,0 +1,24 @@
+@import "../../varaibles.scss";
+.bckBtn {
+  button {
+    display: flex;
+    align-items: center;
+    color: white;
+    background: $button-bg;
+    padding: 5px 25px;
+    border-radius: 8px;
+    box-shadow: $shadow-item-bottom;
+    transition: all ease-in-out 200ms;
+    @include breakpoint(sm) {
+      padding: 2px 15px;
+      font-size: 13px;
+    }
+    &:hover {
+      box-shadow: $button-shadow;
+      transform: scale(1.05);
+    }
+    p {
+      margin-left: 10px;
+    }
+  }
+}

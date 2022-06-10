@@ -1,0 +1,199 @@
+@import "../../varaibles.scss";
+.container {
+  &__heading {
+    margin: 15px 0;
+    @include breakpoint(sm) {
+      margin: 0;
+      margin-bottom: 5px;
+    }
+    h1 {
+      font-size: 25px;
+      font-weight: 600;
+      color: $nav-icons-fill;
+      @include breakpoint(sm) {
+        font-size: 15px;
+      }
+      @include breakpoint(mobileSmCart) {
+        display: none;
+      }
+    }
+  }
+
+  // CART CONTAINER -------------------- $
+  &__checkOut {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    @include breakpoint(mobileSmCart) {
+      flex-direction: column;
+    }
+    &__cart,
+    &__sumUp {
+      background: white;
+      border-radius: 15px;
+      box-shadow: $shadow-item-bottom;
+      cursor: pointer;
+      transition: transform ease-in-out 300ms;
+      @include breakpoint(mobileSmCart) {
+        border-radius: 10px;
+      }
+
+      &:hover {
+        // transform: scale(1.03);
+      }
+    }
+    &__cart {
+      width: 56%;
+      padding: 10px 15px;
+      @include breakpoint(sm) {
+        padding: 5px 10px;
+        margin-bottom: 10px;
+      }
+      @include breakpoint(mobileSmCart) {
+        width: 100%;
+      }
+      &__headingCart {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid $nav-icons-fill;
+        h1 {
+          font-size: 17px;
+          font-weight: 600;
+          @include breakpoint(sm) {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+    // TOTAL CONTAINER -------------------- $
+    &__sumUp {
+      width: 41%;
+      // height: 390px;
+      padding: 8px 10px;
+      @include breakpoint(mobileSmCart) {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      &__heading {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        // border-bottom: 1px solid $nav-icons-fill;
+        h1 {
+          font-size: 17px;
+          font-weight: 600;
+          @include breakpoint(sm) {
+            font-size: 15px;
+          }
+        }
+      }
+      &__type {
+        background: #d5d5d5;
+        display: flex;
+        padding: 4px;
+        border-radius: 8px;
+        box-shadow: $shadow-item-bottom;
+        font-weight: 600;
+        @include breakpoint(sm) {
+          font-size: 11px;
+        }
+        &__delivery {
+          border-bottom: 1px solid black;
+          p {
+            font-size: 12px;
+            margin: 8px 0;
+            @include breakpoint(sm) {
+              font-size: 9px;
+            }
+            span {
+              font-weight: 600;
+            }
+          }
+        }
+        &__standard,
+        &__express {
+          color: $nav-icons-fill;
+          width: 50%;
+          text-align: center;
+          border-radius: 8px;
+          padding: 3px 0;
+        }
+        &__standard {
+          background: white;
+          box-shadow: $shadow-item-bottom;
+        }
+      }
+      &__total {
+        padding: 13px 0 17px 0;
+        border-bottom: 1px solid black;
+        @include breakpoint(sm) {
+          padding: 8px 0 8px 0;
+        }
+        &__details,
+        &__detailsTotal {
+          display: flex;
+          justify-content: space-between;
+          color: $nav-icons-fill;
+        }
+        &__details {
+          font-size: 13px;
+          font-weight: 600;
+          @include breakpoint(sm) {
+            font-size: 10px;
+          }
+          &:nth-child(2) {
+            margin-bottom: 20px;
+            @include breakpoint(sm) {
+              margin-bottom: 8px;
+            }
+          }
+        }
+        &__detailsTotal {
+          font-weight: 600;
+          @include breakpoint(sm) {
+            font-size: 13px;
+          }
+        }
+      }
+      &__btnContainer {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        @include breakpoint(sm) {
+          padding: 10px 0;
+        }
+        button {
+          // border: 1px solid blue;
+          padding: 7px 0;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 15px;
+          transition: all ease-in-out 200ms;
+          @include breakpoint(sm) {
+            font-size: 10px;
+          }
+          &:nth-child(1) {
+            box-shadow: $shadow-item-bottom;
+            margin-bottom: 15px;
+            background: #0089ff;
+            color: white;
+            @include breakpoint(sm) {
+              margin-bottom: 8px;
+            }
+            &:hover {
+              box-shadow: $shadow-blue;
+            }
+          }
+          &:nth-child(2) {
+            border: 0.5px solid $nav-icons-fill;
+            border-color: rgb(179, 179, 179);
+            color: $text-grey;
+            &:hover {
+              box-shadow: $shadow-item-bottom;
+              color: $nav-icons-fill;
+            }
+          }
+        }
+      }
+    }
+  }
+}

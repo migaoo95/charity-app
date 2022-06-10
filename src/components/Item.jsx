@@ -1,25 +1,24 @@
 import classes from "../styles/modules/Item.module.scss";
-// import shirt from "../assets/jpeg/shirt.jpg";
 import { GiHearts } from "react-icons/gi";
-import { MdOutlineAddShoppingCart } from "react-icons/md";
-import x from "../assets/png/x.png";
 import { Link } from "react-router-dom";
 import ProductButton from "./buttons/ProductButton";
-
-function Item({ data, id, allListings }) {
+import { AiFillHeart } from "react-icons/ai";
+function Item({ data, id, allListings, icon, bg }) {
   return (
     <Link to={`/${id}`}>
       <div className={`${classes.item}`}>
         <div className={classes.item__image}>
-          <div className={classes.item__image__icon}>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <GiHearts fill="white" size={18} />
-            </button>
-          </div>
+          {allListings && (
+            <div className={classes.item__image__icon}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <GiHearts fill="white" size={18} />
+              </button>
+            </div>
+          )}
 
           <img src={data.imageUrls[0]} alt="" />
         </div>
@@ -35,44 +34,40 @@ function Item({ data, id, allListings }) {
               </h1>
             )}
           </div>
-          <div
-            className={
-              allListings
-                ? classes.item__desc__priceCart
-                : classes.item__desc__priceCartUser
-            }
-          >
-            <div className={classes.item__desc__priceCart__price}>
-              <h1>
-                Price:
-                <span>{data.price}$</span>
-              </h1>
-            </div>
-            <div className={classes.item__desc__priceCart__likeCartDiv}>
-              {" "}
-              {/* <div
-                className={classes.item__desc__priceCart__likeCartDiv__likeIcon}
-              >
-                <GiHearts fill="white" size={18} />
-              </div> */}
-              {/* <button
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <MdOutlineAddShoppingCart fill="white" size={18} />
-                <span> Add to cart</span>
-              </button> */}
-              <ProductButton
-                icon={<MdOutlineAddShoppingCart fill="white" size={18} />}
-              />
-              {!allListings && (
-                <ProductButton
-                  icon={<MdOutlineAddShoppingCart fill="white" size={18} />}
-                />
-              )}
-              {/* <ProductButton /> */}
-            </div>
+          <div className={classes.item__desc__priceCart__price}>
+            <h1>
+              Price:
+              <span>{data.price}$</span>
+            </h1>
+
+            {!allListings && (
+              <div className={classes.item__desc__priceCart__price__mobileBtn}>
+                <ProductButton text="Delete" bg={bg} icon={icon[0]} />
+                <ProductButton text="Edit" bg={"#4AD17E"} icon={icon[1]} />
+              </div>
+            )}
+
+            {allListings && (
+              <div className={classes.item__desc__priceCart__price__btns}>
+                <div
+                  className={classes.item__desc__priceCart__price__hiddenBtn}
+                >
+                  <ProductButton
+                    text="Add to cart"
+                    bg={"#fa5d43"}
+                    icon={<AiFillHeart />}
+                  />
+                </div>
+                <ProductButton text="Add to cart" bg={bg} icon={icon[0]} />
+              </div>
+            )}
+          </div>
+          <div className={classes.item__desc__priceCartUser}>
+            <div className=""></div>
+            {!allListings && [
+              <ProductButton text="Delete" bg={bg} icon={icon[0]} />,
+              <ProductButton text="Edit" bg={"#4AD17E"} icon={icon[1]} />,
+            ]}
           </div>
         </div>
       </div>

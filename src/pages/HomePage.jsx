@@ -21,6 +21,7 @@ import SelectIn from "../components/SelectIn";
 import { data } from "autoprefixer";
 import { customStyles } from "../styles/customStyles/customSelect";
 import { type } from "@testing-library/user-event/dist/type";
+import { MdAddShoppingCart } from "react-icons/md";
 
 function HomePage() {
   const [items, setAllItems] = useState();
@@ -88,16 +89,18 @@ function HomePage() {
       </InputsContainer>
 
       <div
-        className={`${classes.container__itemContainer} m-auto grid grid-cols-2  md:grid-cols-3 gap-8 `}
+        className={`${classes.container__itemContainer} m-auto grid grid-cols-2 sm:grid-cols-3  md:grid-cols-3 gap-2 md:gap-8 sm:gap-3 `}
       >
         {!loading ? (
           items.map((item) => {
             return (
               <Item
+                bg={"#DD9788"}
                 key={item.id}
                 id={item.id}
                 data={item.data}
                 allListings={true}
+                icon={[<MdAddShoppingCart size={20} />]}
               />
             );
           })

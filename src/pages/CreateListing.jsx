@@ -1,9 +1,9 @@
 import Form from "../components/Form";
 import classes from "../styles/modules/CreateListing.module.scss";
 const styles = {
-  position: "absolute",
-  top: "0",
-  left: "0",
+  // position: "rel",
+  // top: "0",
+  // left: "0",
   margin: "0 auto",
   display: "flex",
   alignItems: "center",

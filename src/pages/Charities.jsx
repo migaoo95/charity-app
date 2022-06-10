@@ -10,10 +10,13 @@ import { useState, useEffect } from "react";
 import { query } from "firebase/firestore";
 import { QGL_QUERY } from "../API/queries";
 import { getSingleCharity } from "../API/api";
-
+import { useWindowSize } from "../hooks/useWindowSize";
 function Charities() {
   const [items, setItems] = useState([]);
   let [loading, setLoading] = useState(true);
+  const size = useWindowSize();
+  const [screenSize, setScreenSize] = useState();
+  // Test
 
   useEffect(() => {
     getSingleCharity(QGL_QUERY)
@@ -24,6 +27,9 @@ function Charities() {
         setLoading(false);
       });
   }, []);
+  useEffect(() => {
+    setScreenSize(size);
+  }, [size]);
   return (
     <div className={classes.container}>
       <p>Charities</p>
@@ -33,12 +39,14 @@ function Charities() {
       </InputsContainer>
       <div
         className={
-          !loading ? "m-auto grid grid-cols-2 gap-6 " : "flex justify-center"
+          !loading
+            ? "m-auto grid grid-cols-2 gap-3 sm:gap-3"
+            : "flex justify-center"
         }
       >
         {!loading ? (
           items.map((item) => {
-            return <Charity key={item.id} data={item} />;
+            return <Charity key={item.id} data={item} size={screenSize} />;
           })
         ) : (
           <ClipLoader color={`#559CF8`} loading={loading} size={150} />

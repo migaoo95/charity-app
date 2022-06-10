@@ -1,7 +1,11 @@
 @import "../varaibles.scss";
 .container {
+  margin-bottom: 50px;
   @include breakpoint(sm) {
     padding: 0 30px;
+  }
+  @include breakpoint(xs) {
+    padding: 0 10px;
   }
   &__text {
     p {
