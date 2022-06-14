@@ -1,6 +1,9 @@
 @import "../varaibles.scss";
 .container {
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   @include breakpoint(sm) {
     padding: 0 30px;
   }
@@ -17,5 +20,21 @@
   &__loadingBarDiv {
     display: flex;
     justify-content: center;
+  }
+  &__loadBtn {
+    position: fixed;
+    bottom: 0;
+    margin: 0 auto;
+  }
+}
+.bottomBtn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  button {
+    color: white;
+    padding: 5px 25px;
+    background: $button-bg;
+    box-shadow: $shadow-item-bottom;
   }
 }

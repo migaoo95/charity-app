@@ -17,6 +17,7 @@ import Charities from "./pages/Charities";
 import Charity from "./pages/Charity";
 import Cart from "./pages/Cart";
 import ProductPage from "./pages/ProductPage";
+
 function App() {
   // // get user Status
   // const { loggedIn, checkingStatus } = useUserStatus();

@@ -10,7 +10,14 @@ import { customStylesCreate } from "../styles/customStyles/customSelect.js";
 // Import Database
 import { db } from "../firebase-config";
 // Import documents and set documents
-import { serverTimestamp, addDoc, collection } from "firebase/firestore";
+import {
+  serverTimestamp,
+  addDoc,
+  collection,
+  increment,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 // Get user credentials
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -24,18 +31,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 function Form() {
-  // --------------------- Validators
-  // let nameValidator = itemData.name.length > 10 && itemData.name.length < 20;
-  const validator = (param, target) => {
-    if (target === "name" && param.length >= 10 && param.length <= 50) {
-      return true;
-    } else if (target === "desc" && param.length >= 10 && param.length <= 150) {
-      return true;
-    } else {
-      return false;
-    }
-
-    // return param.length > 10 ? true : false;
+  const countAddItem = async () => {
+    const countRef = doc(db, "count", "T9wguA8kalgZYEnMJpQn");
+    await updateDoc(countRef, {
+      count: increment(1),
+    });
   };
   const [itemData, setItemData] = useState({
     name: "",
@@ -125,22 +125,18 @@ function Form() {
       toast.error("Images not uploaded");
       return;
     });
-    if (validator(itemData.name, "name") && validator(itemData.desc, "desc")) {
-      const itemDataCopy = {
-        ...itemData,
-        imageUrls,
-        listingTimeStamp: serverTimestamp(),
-      };
-      delete itemDataCopy.images;
-      console.log(itemDataCopy);
-
-      // eslint-disable-next-line no-unused-vars
-      const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
-      clearFields();
-      toast.success("Listing Created");
-    } else {
-      toast.error("sorry length");
-    }
+    const itemDataCopy = {
+      ...itemData,
+      imageUrls,
+      listingTimeStamp: serverTimestamp(),
+    };
+    delete itemDataCopy.images;
+    console.log(itemDataCopy);
+    // eslint-disable-next-line no-unused-vars
+    const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
+    // clearFields();
+    toast.success("Listing Created");
+    countAddItem();
   };
   const clearFields = () => {
     setItemData({
