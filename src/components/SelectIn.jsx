@@ -1,12 +1,8 @@
 import Select, { components } from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsFilter } from "react-icons/bs";
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-const handleChange = () => {
+import { capitalize } from "../helpers/helpers";
+const handleChange = ({ options }) => {
   // console.log("change");
 };
 const DropdownIndicator = (props) => {
@@ -16,14 +12,34 @@ const DropdownIndicator = (props) => {
     </components.DropdownIndicator>
   );
 };
-function SelectIn({ customStyles, options, handleChangee }) {
-  const [selectedOption, setSelectedOption] = useState(null);
-
+function SelectIn({ customStyles, data, handleChange }) {
+  const [focus, setFocus] = useState(false);
+  const [options, setOptions] = useState([]);
+  const inChange = (e) => {
+    console.log(e.target.value);
+  };
+  useEffect(() => {
+    let newArr = data.map((el) => {
+      return capitalize(el.data.type);
+    });
+    newArr = [...new Set(newArr)].map((el) => {
+      return { value: el, label: el };
+    });
+    newArr.unshift({ value: "all", label: "All Product" });
+    setOptions(newArr);
+    console.log(newArr, "Arrrr ----");
+  }, [data]);
   return (
     <>
       <Select
-        defaultValue={selectedOption}
-        onChange={handleChange}
+        // defaultValue={{ value: "Show All", label: "Show All" }}
+        onFocus={(e) => {
+          e.preventDefault();
+          // setFocus(true);
+        }}
+        onChange={(e) => {
+          handleChange(e, "filter");
+        }}
         options={options}
         styles={customStyles}
         components={{ DropdownIndicator }}

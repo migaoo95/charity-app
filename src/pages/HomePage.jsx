@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-// import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
 import {
   collection,
@@ -12,17 +11,15 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase-config";
-// import Listings from "./Listings";
 import Item from "../components/Item";
 import classes from "../styles/modules/Home.module.scss";
 import InputsContainer from "../components/InputsContainer";
 import SearchBar from "../components/SearchBar";
 import SelectIn from "../components/SelectIn";
-// import { data } from "autoprefixer";
 import { customStyles } from "../styles/customStyles/customSelect";
-// import { type } from "@testing-library/user-event/dist/type";
 import { MdAddShoppingCart } from "react-icons/md";
-
+// import { fetchAllItems } from "../helpers/searchBarLogic/searchLogic.js";
+import { fetchAllItems } from "../helpers/searchBarLogic/searchLogic";
 function HomePage() {
   const [hideShow, setHideShow] = useState(false);
   const [items, setAllItems] = useState();
@@ -31,58 +28,43 @@ function HomePage() {
   const [itemsInDb, setItemsInDb] = useState(0);
   //---------------------------------- whileSearch
   const [whileSearch, setWhileSearch] = useState(false);
-  const [searchItemsAll, setSearchItemsAll] = useState();
+  const [searchItemsAll, setSearchItemsAll] = useState([]);
   const [tempStoreItem, setTempStoreItem] = useState([]);
   //---------------------------------- handleChange
-  const handleSearchBarChange = (e) => {
-    if (e.target.value !== "") {
-      setWhileSearch(true);
-      let arr = [];
-      searchItemsAll.forEach((item) => {
+  const handleSearchBarChange = (e, from) => {
+    // console.log(typeof e.target);
+    setWhileSearch(true);
+    let arr = [];
+    searchItemsAll.forEach((item) => {
+      if (from === "search") {
         if (item.data.name.toLowerCase().indexOf(e.target.value) !== -1) {
           !arr.includes(item) && arr.push(item);
         }
-      });
-      setTempStoreItem(arr);
-      console.log(arr);
-    } else {
+      } else if (from === "filter") {
+        if (item.data.type.toLowerCase() === e.value.toLowerCase()) {
+          return arr.push(item);
+        }
+      } else {
+        setWhileSearch(false);
+      }
+    });
+    if (from === "filter" && e.value === "all") {
       setWhileSearch(false);
     }
-  };
-  //---------------------------------- Fetch Items in a background
-  const fetchAllItems = async () => {
-    try {
-      const itemRef = collection(db, "listing");
-      const qry = query(itemRef, orderBy("listingTimeStamp", "desc"));
-      const querySnap = await getDocs(qry);
-      const itemsArr = [];
-      querySnap.forEach((doc) => {
-        return itemsArr.push({
-          id: doc.id,
-          data: doc.data(),
-        });
-      });
-      setSearchItemsAll(itemsArr);
-    } catch (err) {
-      console.log(err);
-    }
+    setTempStoreItem(arr);
+    console.log(arr);
   };
 
-  //----------------------------------
-  // const [searchedItems, setSearchedItems] = useState();
-  // Test state ------
-  // const [whileSearch, setWhileSearch] = useState(false);
-  // const getChildsProps = (data, allItems) => {
-  //   console.log(allItems);
-  //   setSearchedItems(data);
-  //   setWhileSearch(true);
-  // };
+  //---------------------------------- Fetch Items in a background
+
   const noItems = Array.isArray(items) && items.length === 0 && (
     <h1>No Items</h1>
   );
   useEffect(() => {
     getSize();
-    fetchAllItems();
+    fetchAllItems(
+      query(collection(db, "listing"), orderBy("listingTimeStamp", "desc"))
+    ).then((data) => setSearchItemsAll(data));
   }, []);
   // User request to display more items in UI ------------------
   useEffect(() => {
@@ -117,12 +99,16 @@ function HomePage() {
       toast.error("Could not fetch listings");
     }
   };
+  const test = (e, from) => {
+    console.log(e.value, from);
+  };
   // Get count of all items within database -----------------------
   const getSize = async () => {
     const sizeRef = doc(db, "count", "T9wguA8kalgZYEnMJpQn");
     const snapSize = await getDoc(sizeRef);
     setItemsInDb(snapSize.data().count);
   };
+
   return (
     <>
       <div className={classes.container}>
@@ -132,7 +118,11 @@ function HomePage() {
 
         <InputsContainer>
           <SearchBar handleChange={handleSearchBarChange} />{" "}
-          <SelectIn customStyles={customStyles} />
+          <SelectIn
+            handleChange={handleSearchBarChange}
+            data={searchItemsAll}
+            customStyles={customStyles}
+          />
         </InputsContainer>
 
         <div
@@ -189,7 +179,7 @@ function HomePage() {
             : ""} */}
         </div>
       </div>
-      {!hideShow && (
+      {!hideShow && !whileSearch && (
         <div className={classes.bottomBtn}>
           <button
             onClick={() => {

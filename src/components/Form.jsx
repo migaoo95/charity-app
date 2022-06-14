@@ -74,7 +74,7 @@ function Form() {
   // ------------------------------------- { Submit Form Function }
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     // Store Images --->
     const imageStore = async (image) => {
       return new Promise((resolve, reject) => {
@@ -125,6 +125,7 @@ function Form() {
       toast.error("Images not uploaded");
       return;
     });
+    countAddItem();
     const itemDataCopy = {
       ...itemData,
       imageUrls,
@@ -136,7 +137,7 @@ function Form() {
     const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
     // clearFields();
     toast.success("Listing Created");
-    countAddItem();
+    // countAddItem();
   };
   const clearFields = () => {
     setItemData({
