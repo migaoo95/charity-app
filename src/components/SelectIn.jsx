@@ -12,7 +12,7 @@ const DropdownIndicator = (props) => {
     </components.DropdownIndicator>
   );
 };
-function SelectIn({ customStyles, data, handleChange }) {
+function SelectIn({ customStyles, data, handleChange, test }) {
   const [focus, setFocus] = useState(false);
   const [options, setOptions] = useState([]);
   const inChange = (e) => {
@@ -29,6 +29,10 @@ function SelectIn({ customStyles, data, handleChange }) {
     setOptions(newArr);
     console.log(newArr, "Arrrr ----");
   }, [data]);
+  // --------------------- Test
+  useEffect(() => {
+    // test(false);
+  }, []);
   return (
     <>
       <Select

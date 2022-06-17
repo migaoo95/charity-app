@@ -17,6 +17,8 @@ import Charities from "./pages/Charities";
 import Charity from "./pages/Charity";
 import Cart from "./pages/Cart";
 import ProductPage from "./pages/ProductPage";
+// Test -----------
+import Test from "./pages/Test";
 
 function App() {
   // // get user Status
@@ -42,6 +44,7 @@ function App() {
             <Route path="/charities" element={<Charities />} />
             <Route path="/charities/:itemId" element={<Charity />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/test" element={<Test />} />
           </Route>
         </Routes>
       </Router>

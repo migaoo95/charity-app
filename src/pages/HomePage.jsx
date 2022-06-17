@@ -20,16 +20,25 @@ import { customStyles } from "../styles/customStyles/customSelect";
 import { MdAddShoppingCart } from "react-icons/md";
 // import { fetchAllItems } from "../helpers/searchBarLogic/searchLogic.js";
 import { fetchAllItems } from "../helpers/searchBarLogic/searchLogic";
+import useFetch from "../hooks/useFetch";
 function HomePage() {
   const [hideShow, setHideShow] = useState(false);
-  const [items, setAllItems] = useState();
-  const [loading, setLoading] = useState(true);
   const [showAmout, setShowAmout] = useState(9);
   const [itemsInDb, setItemsInDb] = useState(0);
   //---------------------------------- whileSearch
   const [whileSearch, setWhileSearch] = useState(false);
   const [searchItemsAll, setSearchItemsAll] = useState([]);
   const [tempStoreItem, setTempStoreItem] = useState([]);
+  // New ----------------- CUSTOM HOOK
+  const [increase, setIncrease] = useState(9);
+  // Fetch items using a hook
+  const { items, incrementItemLimit, loading } = useFetch(
+    query(
+      collection(db, "listing"),
+      orderBy("listingTimeStamp", "desc"),
+      limit(increase)
+    )
+  );
   //---------------------------------- handleChange
   const handleSearchBarChange = (e, from) => {
     // console.log(typeof e.target);
@@ -55,7 +64,7 @@ function HomePage() {
     console.log(arr);
   };
 
-  //---------------------------------- Fetch Items in a background
+  //---------------------------------- Fetch Items in a background ------ ALl Items Search Bar
 
   const noItems = Array.isArray(items) && items.length === 0 && (
     <h1>No Items</h1>
@@ -66,42 +75,37 @@ function HomePage() {
       query(collection(db, "listing"), orderBy("listingTimeStamp", "desc"))
     ).then((data) => setSearchItemsAll(data));
   }, []);
-  // User request to display more items in UI ------------------
+  // User request to display more items in UI -------------------- Only for Limit Button 1.
   useEffect(() => {
-    fetchLimitItems(showAmout);
-    if (itemsInDb < showAmout) {
-      setHideShow(true);
-    } else {
-      setHideShow(false);
-    }
-  }, [showAmout, itemsInDb]);
-  // Main items fetch with limit applied -----------------------
-  const fetchLimitItems = async (lim) => {
-    try {
-      const itemRef = collection(db, "listing");
-      const qry = query(
-        itemRef,
-        orderBy("listingTimeStamp", "desc"),
-        limit(lim)
-      );
-      const querySnap = await getDocs(qry);
-      const itemsArr = [];
-      querySnap.forEach((doc) => {
-        return itemsArr.push({
-          id: doc.id,
-          data: doc.data(),
-        });
-      });
-      setAllItems(itemsArr);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      toast.error("Could not fetch listings");
-    }
-  };
-  const test = (e, from) => {
-    console.log(e.value, from);
-  };
+    itemsInDb < increase ? setHideShow(true) : setHideShow(false);
+  }, [increase, itemsInDb]);
+  // Main items fetch with limit applied ----------------------- Only for Limit button
+  // const fetchLimitItems = async (lim) => {
+  //   try {
+  //     const itemRef = collection(db, "listing");
+  //     const qry = query(
+  //       itemRef,
+  //       orderBy("listingTimeStamp", "desc"),
+  //       limit(lim)
+  //     );
+  //     const querySnap = await getDocs(qry);
+  //     const itemsArr = [];
+  //     querySnap.forEach((doc) => {
+  //       return itemsArr.push({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       });
+  //     });
+  //     setAllItems(itemsArr);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("Could not fetch listings");
+  //   }
+  // };
+  // const test = (e, from) => {
+  //   console.log(e.value, from);
+  // };
   // Get count of all items within database -----------------------
   const getSize = async () => {
     const sizeRef = doc(db, "count", "T9wguA8kalgZYEnMJpQn");
@@ -142,7 +146,7 @@ function HomePage() {
               );
             })}
           {noItems}
-          {!loading && !whileSearch ? (
+          {!loading && !whileSearch && items ? (
             items.map((item) => {
               return (
                 <Item
@@ -162,32 +166,16 @@ function HomePage() {
               <ClipLoader color={`#559CF8`} loading={loading} size={150} />
             </div>
           )}
-          {/* {!whileSearch
-            ? tempStoreItem.forEach((item) => {
-                return (
-                  <h1>Hello</h1>
-                  // <Item
-                  //   bg={"#DD9788"}
-                  //   key={item.id}
-                  //   id={item.id}
-                  //   data={item.data}
-                  //   allListings={true}
-                  //   icon={[<MdAddShoppingCart size={20} />]}
-                  // />
-                );
-              })
-            : ""} */}
         </div>
       </div>
       {!hideShow && !whileSearch && (
         <div className={classes.bottomBtn}>
           <button
             onClick={() => {
-              setShowAmout((prev) => {
-                if (prev < itemsInDb) {
-                  return prev + 9;
-                }
+              setIncrease((prev) => {
+                return prev + 9;
               });
+              incrementItemLimit();
             }}
           >
             Load more products
