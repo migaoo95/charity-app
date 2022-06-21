@@ -3,7 +3,9 @@ import { GiHearts } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import ProductButton from "./buttons/ProductButton";
 import { AiFillHeart } from "react-icons/ai";
+import { v4 as uuidv4 } from "uuid";
 function Item({ data, id, allListings, icon, bg }) {
+  const { v4: uuidv4 } = require("uuid");
   return (
     <Link to={`/${id}`}>
       <div className={`${classes.item}`}>
@@ -42,8 +44,18 @@ function Item({ data, id, allListings, icon, bg }) {
 
             {!allListings && (
               <div className={classes.item__desc__priceCart__price__mobileBtn}>
-                <ProductButton text="Delete" bg={bg} icon={icon[0]} />
-                <ProductButton text="Edit" bg={"#4AD17E"} icon={icon[1]} />
+                <ProductButton
+                  key={uuidv4()}
+                  text="Delete"
+                  bg={bg}
+                  icon={icon[0]}
+                />
+                <ProductButton
+                  key={uuidv4()}
+                  text="Edit"
+                  bg={"#4AD17E"}
+                  icon={icon[1]}
+                />
               </div>
             )}
 
@@ -53,20 +65,36 @@ function Item({ data, id, allListings, icon, bg }) {
                   className={classes.item__desc__priceCart__price__hiddenBtn}
                 >
                   <ProductButton
+                    key={uuidv4()}
                     text="Add to cart"
                     bg={"#fa5d43"}
                     icon={<AiFillHeart />}
                   />
                 </div>
-                <ProductButton text="Add to cart" bg={bg} icon={icon[0]} />
+                <ProductButton
+                  key={uuidv4()}
+                  text="Add to cart"
+                  bg={bg}
+                  icon={icon[0]}
+                />
               </div>
             )}
           </div>
           <div className={classes.item__desc__priceCartUser}>
             <div className=""></div>
             {!allListings && [
-              <ProductButton text="Delete" bg={bg} icon={icon[0]} />,
-              <ProductButton text="Edit" bg={"#4AD17E"} icon={icon[1]} />,
+              <ProductButton
+                key={uuidv4()}
+                text="Delete"
+                bg={bg}
+                icon={icon[0]}
+              />,
+              <ProductButton
+                key={uuidv4()}
+                text="Edit"
+                bg={"#4AD17E"}
+                icon={icon[1]}
+              />,
             ]}
           </div>
         </div>

@@ -1,4 +1,4 @@
-export const getSingleCharity = async (query, variables) => {
+export const fetchCharities = async (query, variables) => {
   return await fetch("https://charitybase.uk/api/graphql", {
     method: "POST",
     headers: {

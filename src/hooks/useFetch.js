@@ -26,7 +26,6 @@ const useFetch = (docRef) => {
           });
           setItems(itemsArr);
           setLoading(false);
-          console.log(itemsArr, "customHook");
         }
       })
       .catch((error) => {

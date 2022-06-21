@@ -9,50 +9,122 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useState, useEffect } from "react";
 import { query } from "firebase/firestore";
 import { QGL_QUERY } from "../API/queries";
-import { getSingleCharity } from "../API/api";
+import { fetchCharities } from "../API/api";
 import { useWindowSize } from "../hooks/useWindowSize";
+import useFetchGql from "../hooks/useFetchGql";
+
+// -------------------------
 function Charities() {
   const [items, setItems] = useState([]);
   let [loading, setLoading] = useState(true);
   const size = useWindowSize();
   const [screenSize, setScreenSize] = useState();
-  // Test
-
+  const [filter, setFilter] = useState(false);
+  const [limit, setLimit] = useState(10);
+  const [searchItems, setSearchItems] = useState([]);
+  const [tempItems, setTempItems] = useState([]);
+  // --------------------------
+  // const { data } = useFetchGql(QGL_QUERY);
+  // ---------------------------- Fetch all Items for search
   useEffect(() => {
-    getSingleCharity(QGL_QUERY)
+    fetchCharities(QGL_QUERY, { limit: 25 })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data.data.CHC.getCharities.list);
-        setItems(data.data.CHC.getCharities.list);
+        setSearchItems(data.data.CHC.getCharities.list);
         setLoading(false);
       });
   }, []);
+  // ---------------------------- Limited items query
+  useEffect(() => {
+    fetchCharities(QGL_QUERY, { limit: limit })
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data.data.CHC.getCharities.list);
+        setLoading(false);
+      });
+  }, [limit]);
+  // ---------------- custom Hook / Window size
   useEffect(() => {
     setScreenSize(size);
   }, [size]);
+  // --------------------------- search Bar handler
+  const handleChange = (e) => {
+    setFilter(true);
+    let arr = [];
+    if (e.target.value !== "") {
+      searchItems.forEach((item) => {
+        item.name.toLowerCase().indexOf(e.target.value) !== -1 &&
+          arr.push(item);
+      });
+      setTempItems(arr);
+    } else {
+      setFilter(false);
+    }
+  };
+  const handleFilter = (e) => {
+    setFilter(true);
+    console.log(searchItems);
+    // console.log(e.value);
+    // console.log(searchItems[0].operations[0]);
+    let arr = [];
+    if (e.value === "all") {
+      setFilter(false);
+    } else {
+      searchItems.forEach((item) => {
+        item.causes[0].name.toLowerCase() === e.value.toLowerCase() &&
+          arr.push(item);
+      });
+      setTempItems(arr);
+    }
+  };
   return (
-    <div className={classes.container}>
-      <p>Charities</p>
-      <InputsContainer>
-        <SearchBar />
-        <SelectIn customStyles={customStyles} />
-      </InputsContainer>
-      <div
-        className={
-          !loading
-            ? "m-auto grid grid-cols-2 gap-3 sm:gap-3"
-            : "flex justify-center"
-        }
-      >
-        {!loading ? (
-          items.map((item) => {
-            return <Charity key={item.id} data={item} size={screenSize} />;
-          })
-        ) : (
-          <ClipLoader color={`#559CF8`} loading={loading} size={150} />
-        )}
+    <>
+      <div className={classes.container}>
+        <p>Charities</p>
+        <div className={classes.container__inputContainer}>
+          <SearchBar handleChange={handleChange} />
+          <SelectIn
+            handleChange={handleFilter}
+            charityData={searchItems}
+            customStyles={customStyles}
+          />
+        </div>
+        <div
+          className={
+            !loading
+              ? "m-auto grid grid-cols-2 gap-3 sm:gap-3"
+              : "flex justify-center"
+          }
+        >
+          {!loading && items && !filter ? (
+            items.map((item) => {
+              return <Charity key={item.id} data={item} size={screenSize} />;
+            })
+          ) : (
+            <ClipLoader color={`#559CF8`} loading={loading} size={150} />
+          )}
+          {filter &&
+            tempItems.map((item) => {
+              return <Charity key={item.id} data={item} size={screenSize} />;
+            })}
+        </div>
       </div>
-    </div>
+      {limit !== 25 && !filter && (
+        <div className={classes.bottomBtn}>
+          <button
+            onClick={() => {
+              if (limit < 25) {
+                setLimit((prev) => {
+                  return prev + 5;
+                });
+              }
+            }}
+          >
+            Load More
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 // options={typeArrState} customStyles={customStyles}

@@ -34,7 +34,7 @@ function SearchBar({ handleChange }) {
     <div className={classes.inputWithIcon}>
       <input
         onChange={(e) => {
-          handleChange(e, "search");
+          handleChange(e);
         }}
         type="text"
         placeholder="Find your items here..."

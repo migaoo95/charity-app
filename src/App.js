@@ -1,28 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// Private route component
 import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import SignUp from "./pages/SignUp";
 import ForgotPass from "./pages/ForgotPass";
 import Listings from "./pages/Listings";
 import CreateListing from "./pages/CreateListing";
-// Toast Alerts
 import { ToastContainer } from "react-toastify";
-import Leyout from "./components/Leyout";
-// Navbar
-import Navbar from "./components/Navbar";
-// user status
-// import { useUserStatus } from "../src/hooks/useUserStatus";
 import Charities from "./pages/Charities";
 import Charity from "./pages/Charity";
 import Cart from "./pages/Cart";
 import ProductPage from "./pages/ProductPage";
-// Test -----------
-import Test from "./pages/Test";
-
 function App() {
-  // // get user Status
-  // const { loggedIn, checkingStatus } = useUserStatus();
   return (
     <div className="mainContainer">
       <Router>
@@ -44,7 +32,6 @@ function App() {
             <Route path="/charities" element={<Charities />} />
             <Route path="/charities/:itemId" element={<Charity />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/test" element={<Test />} />
           </Route>
         </Routes>
       </Router>
