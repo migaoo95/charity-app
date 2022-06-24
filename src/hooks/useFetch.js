@@ -5,7 +5,13 @@ const useFetch = (docRef) => {
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
+  const [change, setChange] = useState(0);
   const isMouted = useRef(true);
+  const removeThis = (newItems) => {
+    setChange((prev) => {
+      return prev + 1;
+    });
+  };
   const incrementItemLimit = () => {
     setCount((prev) => {
       return prev + 1;
@@ -34,8 +40,8 @@ const useFetch = (docRef) => {
     return () => {
       isMouted.current = false;
     };
-  }, [isMouted, count]);
-  return { items, loading, incrementItemLimit, count };
+  }, [isMouted, count, change]);
+  return { items, loading, incrementItemLimit, count, removeThis };
 };
 
 export default useFetch;

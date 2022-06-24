@@ -4,8 +4,21 @@ import { Link } from "react-router-dom";
 import ProductButton from "./buttons/ProductButton";
 import { AiFillHeart } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-function Item({ data, id, allListings, icon, bg }) {
+import { doc, updateDoc } from "firebase/firestore";
+import { useEffect } from "react";
+import { useState } from "react";
+import { db } from "../firebase-config";
+function Item({ data, id, allListings, icon, bg, addToCart, disable }) {
   const { v4: uuidv4 } = require("uuid");
+  const [isDisabled, setIsDisabled] = useState(true);
+  const updateDisabled = async (id) => {
+    //TODO: Get alll Items from cart
+    // If items in cart id matches item This item id set Disabled to true
+  };
+  useEffect(() => {
+    // console.log(data, "Disabled");
+    // console.log(data);
+  }, []);
   return (
     <Link to={`/${id}`}>
       <div className={`${classes.item}`}>
@@ -71,11 +84,22 @@ function Item({ data, id, allListings, icon, bg }) {
                     icon={<AiFillHeart />}
                   />
                 </div>
+                {/* This button  */}
                 <ProductButton
                   key={uuidv4()}
-                  text="Add to cart"
-                  bg={bg}
-                  icon={icon[0]}
+                  text={!disable ? "Add to Cart" : "Item in Cart"}
+                  bg={!disable ? bg : "#6C6C6C"}
+                  icon={!disable ? icon[0] : null}
+                  addToCart={() => {
+                    addToCart(data, id);
+                    // if (!isDisabled) {
+                    //   addToCart(data, id);
+                    //   // Update this item disabled property
+                    // } else {
+                    //   updateDisabled(id);
+                    //   console.log("Disabled");
+                    // }
+                  }}
                 />
               </div>
             )}

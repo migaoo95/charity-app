@@ -28,3 +28,28 @@ export const urlShortener = (url) => {
 export const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// Date
+export const getDate = (deliveryType) => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const date = new Date();
+  date.setDate(date.getDate() + deliveryType);
+  const monthName = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const formatted = `${monthName} ${day}, ${year}`;
+  return formatted;
+};

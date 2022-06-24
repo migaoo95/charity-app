@@ -1,4 +1,4 @@
-function productButton({ icon, bg, text }) {
+function productButton({ icon, bg, text, addToCart }) {
   const styles = {
     background: bg,
   };
@@ -7,6 +7,7 @@ function productButton({ icon, bg, text }) {
       style={styles}
       onClick={(e) => {
         e.preventDefault();
+        addToCart();
       }}
     >
       {icon}

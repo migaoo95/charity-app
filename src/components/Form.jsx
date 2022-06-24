@@ -27,7 +27,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-import { v4 as uuidv4 } from "uuid";
+import { parse, v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 function Form() {
@@ -41,7 +41,7 @@ function Form() {
     name: "",
     type: "",
     desc: "",
-    price: 0,
+    price: parseFloat(0),
     images: {},
   });
   const { name, desc, price, images } = itemData;
@@ -67,14 +67,14 @@ function Form() {
     } else {
       setItemData({
         ...itemData,
-        [e.target.name]: e.target.value,
+        [e.target.name]: +e.target.value || e.target.value,
       });
     }
   };
   // ------------------------------------- { Submit Form Function }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Store Images --->
     const imageStore = async (image) => {
       return new Promise((resolve, reject) => {
@@ -198,7 +198,7 @@ function Form() {
           <p>Price £</p>
           <input
             onChange={handleChange}
-            value={price}
+            value={parseFloat(price)}
             name="price"
             type="number"
             placeholder="£0.00"

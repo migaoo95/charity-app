@@ -117,10 +117,10 @@
           border-radius: 8px;
           padding: 3px 0;
         }
-        &__standard {
-          background: white;
-          box-shadow: $shadow-item-bottom;
-        }
+        // &__standard {
+        //   background: white;
+        //   box-shadow: $shadow-item-bottom;
+        // }
       }
       &__total {
         padding: 13px 0 17px 0;
@@ -196,4 +196,8 @@
       }
     }
   }
+}
+.active {
+  background: white;
+  box-shadow: $shadow-item-bottom;
 }

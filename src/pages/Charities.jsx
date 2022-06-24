@@ -1,4 +1,3 @@
-import InputsContainer from "../components/InputsContainer";
 import SearchBar from "../components/SearchBar";
 import SelectIn from "../components/SelectIn";
 import { customStyles } from "../styles/customStyles/customSelect";
@@ -7,7 +6,6 @@ import Charity from "../components/CharityComponent";
 import ClipLoader from "react-spinners/ClipLoader";
 //-----------------
 import { useState, useEffect } from "react";
-import { query } from "firebase/firestore";
 import { QGL_QUERY } from "../API/queries";
 import { fetchCharities } from "../API/api";
 import { useWindowSize } from "../hooks/useWindowSize";

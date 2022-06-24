@@ -18,7 +18,9 @@ import {
 // Import database
 import { db } from "../firebase-config";
 import { serverTimestamp, setDoc, doc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 function SignUp() {
+  const { v4: uuidv4 } = require("uuid");
   // Password visibility state toogler
   const [hideShowPass, setHideShow] = useState(false);
   // State form Data object
@@ -40,12 +42,22 @@ function SignUp() {
       [e.target.name]: e.target.value,
     }));
   };
+  const createCart = async (user) => {
+    await setDoc(doc(db, "user_cart", uuidv4()), {
+      user_id: user.uid,
+      products_id: [],
+    });
+  };
   // handleSubmit function ---------------------- { onSubmit Function } - async
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Create auth
       const auth = getAuth();
+      // await setDoc(doc(db, "user_cart", uuidv4()), {
+      //   user_id: auth.currentUser.uid,
+      //   product_id: [],
+      // });
       // call create user -- await profile creation / registering the user --> returns a promise
       const userDetails = await createUserWithEmailAndPassword(
         auth,
@@ -54,6 +66,7 @@ function SignUp() {
       );
       // get created user
       const user = userDetails.user;
+      createCart(user);
       // Update profile/ with current user and update displayName with the formData name
       updateProfile(auth.currentUser, {
         displayName: name,
@@ -63,7 +76,13 @@ function SignUp() {
       const formDataClone = { ...formData };
       delete formDataClone.password;
       formDataClone.timestamp = serverTimestamp();
+
+      // await setDoc(doc(db, "user_cart", uuidv4()), {
+      //   user_id: user.uid,
+      //   product_id: [],
+      // });
       await setDoc(doc(db, "users", user.uid), formDataClone);
+
       // Redirect to home page
       navigate("/");
     } catch (error) {
