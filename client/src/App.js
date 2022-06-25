@@ -10,6 +10,9 @@ import Charities from "./pages/Charities";
 import Charity from "./pages/Charity";
 import Cart from "./pages/Cart";
 import ProductPage from "./pages/ProductPage";
+// TODO: --------------------- Stripe
+import Checkout from "./components/Checkout";
+import "@stripe/stripe-js";
 function App() {
   return (
     <div className="mainContainer">
@@ -32,6 +35,7 @@ function App() {
             <Route path="/charities" element={<Charities />} />
             <Route path="/charities/:itemId" element={<Charity />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/test" element={<Checkout />} />
           </Route>
         </Routes>
       </Router>
