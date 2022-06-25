@@ -15,6 +15,10 @@ import { getAuth } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useRef } from "react";
 import { getDate } from "../helpers/helpers";
+// -------------------------- Stripe
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutBtn from "../components/buttons/CheckoutBtn";
 function Cart() {
   const { v4: uuidv4 } = require("uuid");
   const auth = getAuth();
@@ -80,6 +84,16 @@ function Cart() {
     } else {
       console.log("doc dont exist");
     }
+  };
+  // TODO: ------------------------ STRIPE
+  let stripePromise;
+  const getStripe = () => {
+    if (!stripePromise) {
+      stripePromise = loadStripe(
+        "pk_test_51LEAw0LdahQvKULxx2CGblVg8uKQYHatUi8Ty1m3Wbgs4elSiGLeu2DbQfNW0ipeQ38bDoBfyKLimHZ2qtTV2cmI00mBwLEqdy"
+      );
+    }
+    return stripePromise;
   };
   // TODO: -------------------- handle checkout
   const handleCheckout = () => {
@@ -167,7 +181,8 @@ function Cart() {
             </div>
           </div>
           <div className={classes.container__checkOut__sumUp__btnContainer}>
-            <button onClick={handleCheckout}>Proceed to checkout</button>
+            {/* <button onClick={handleCheckout}>Proceed to checkout</button> */}
+            <CheckoutBtn />
             <button>Continue shopping</button>
           </div>
         </div>
