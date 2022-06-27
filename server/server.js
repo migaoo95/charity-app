@@ -79,7 +79,7 @@ app.post('/api', async (req,res)=>{
         //     //     quantity: item.quantity,
         //     //   }
         //     // }),
-            success_url: `${process.env.SERVER_URL}/`,
+            success_url: `${process.env.SERVER_URL}/success`,
             cancel_url: `${process.env.SERVER_URL}/cart`,
           })
           res.json({ url: session.url })

@@ -1,8 +1,8 @@
 @import "../../varaibles.scss";
 .mainContainer {
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
-    padding: 10px 15px;
+    padding-top: 10px;
     background: white;
     border-radius: 17px;
     box-shadow: $shadow-item-bottom;
@@ -10,14 +10,37 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        h1{
-            font-size: 30px;
-            color: rgb(6, 180, 6);
-        }
+        margin-bottom: 10px;
+    
         img {
             width: 100px;
             height: 100px;
         }
+        &__text{
+            text-align: center;
+            color: rgb(6, 180, 6);
+            h1{
+                font-size: 30px;
+            }
+            p{
+                font-weight: 500;
+            }
+        }
+    }
+    &__info{
+        background: $pinkish;
+        border-radius: inherit;
+        padding: 10px;
+        &__total{
+            color: white;
+          background: $greenBtn;
+          width: 30%;
+          margin: 0 auto;
+          padding: 5px;
+          border-radius: 10px;
+          text-align: center;
+        }
+      
     }
 
 }
