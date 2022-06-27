@@ -13,6 +13,7 @@ import ProductPage from "./pages/ProductPage";
 // TODO: --------------------- Stripe
 import Checkout from "./components/Checkout";
 import "@stripe/stripe-js";
+import Success from "./pages/CheckoutOptions/Success";
 function App() {
   return (
     <div className="mainContainer">
@@ -35,7 +36,10 @@ function App() {
             <Route path="/charities" element={<Charities />} />
             <Route path="/charities/:itemId" element={<Charity />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/success" element={<Success />} />
+            {/* Testing Route */}
             <Route path="/test" element={<Checkout />} />
+            
           </Route>
         </Routes>
       </Router>

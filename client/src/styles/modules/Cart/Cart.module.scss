@@ -171,18 +171,18 @@
           @include breakpoint(sm) {
             font-size: 10px;
           }
-          &:nth-child(1) {
-            box-shadow: $shadow-item-bottom;
-            margin-bottom: 15px;
-            background: #0089ff;
-            color: white;
-            @include breakpoint(sm) {
-              margin-bottom: 8px;
-            }
-            &:hover {
-              box-shadow: $shadow-blue;
-            }
-          }
+          // &:nth-child(1) {
+          //   box-shadow: $shadow-item-bottom;
+          //   margin-bottom: 15px;
+          //   background: #0089ff;
+          //   color: white;
+          //   @include breakpoint(sm) {
+          //     margin-bottom: 8px;
+          //   }
+          //   &:hover {
+          //     box-shadow: $shadow-blue;
+          //   }
+          // }
           &:nth-child(2) {
             border: 0.5px solid $nav-icons-fill;
             border-color: rgb(179, 179, 179);
