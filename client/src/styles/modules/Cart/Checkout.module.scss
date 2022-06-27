@@ -1,0 +1,34 @@
+@import "../../varaibles.scss";
+
+.buttonContainer {
+    &__disabled {
+        color: rgb(174, 174, 174) !important;
+        background: #4389c7 !important;
+        &:hover{
+            box-shadow: none !important;
+        }
+    }
+    button {
+          // border: 1px solid blue;
+          width: 100%;
+          padding: 7px 0;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 15px;
+          transition: all ease-in-out 200ms;
+          @include breakpoint(sm) {
+            font-size: 10px;
+          }
+            box-shadow: $shadow-item-bottom;
+            margin-bottom: 15px;
+            background: #0089ff;
+            color: white;
+            @include breakpoint(sm) {
+              margin-bottom: 8px;
+            }
+            &:hover {
+              box-shadow: $shadow-blue;
+            }
+          
+    }
+}

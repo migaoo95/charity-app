@@ -1,0 +1,23 @@
+@import "../../varaibles.scss";
+.mainContainer {
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 17px;
+    box-shadow: $shadow-item-bottom;
+    &__heading{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        h1{
+            font-size: 30px;
+            color: rgb(6, 180, 6);
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+}

@@ -20,25 +20,47 @@ else {
 // //   })
 // console.log(req.body.items)
 // });
-const storeItems = new Map([
-  [1, { priceInCents: 10000, name: "Learn React" }],
-  [2, { priceInCents: 20000, name: "Learn Css" }],
-]);
+// const storeItems = new Map([
+//   [1, { priceInCents: 10000, name: "Learn React" }],
+//   [2, { priceInCents: 20000, name: "Learn Css" }],
+// ]);
 const item = [{priceInCents:10000, name:"learn React", quantity: 1} ]
 console.log(item, 'item')
 // 1. Uncomment
 app.post('/api', async (req,res)=>{
     try {
-        console.log(req.body.items)
+        console.log(req.body)
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             mode: "payment",
+            shipping_options: [ {
+                shipping_rate_data: {
+                  type: 'fixed_amount',
+                  fixed_amount: {
+                    amount: req.body.shipping.cost * 100,
+                    currency: 'gbp',
+                  },
+                  display_name: req.body.shipping.typeName,
+                  // Delivers between 5-7 business days
+                  delivery_estimate: {
+                    minimum: {
+                      unit: 'business_day',
+                      value: req.body.shipping.duration[0],
+                    },
+                    maximum: {
+                      unit: 'business_day',
+                      value: req.body.shipping.duration[1],
+                    },
+                  }
+                }
+              },],
             line_items: req.body.items.map(item=>{
                 return {
                     price_data:{
                         currency: "gbp",
                         product_data: {
-                            name: item.name
+                            name: item.name,
+                            images: item.images
                         },
                         unit_amount: item.priceInCents
                     }, quantity:item.quantity
@@ -57,8 +79,8 @@ app.post('/api', async (req,res)=>{
         //     //     quantity: item.quantity,
         //     //   }
         //     // }),
-            success_url: `${process.env.SERVER_URL}/success`,
-            cancel_url: `${process.env.SERVER_URL}/test`,
+            success_url: `${process.env.SERVER_URL}/`,
+            cancel_url: `${process.env.SERVER_URL}/cart`,
           })
           res.json({ url: session.url })
     } catch (err){

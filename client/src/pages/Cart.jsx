@@ -19,27 +19,31 @@ import { getDate } from "../helpers/helpers";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutBtn from "../components/buttons/CheckoutBtn";
+import Checkout from "../components/Checkout";
 function Cart() {
   const { v4: uuidv4 } = require("uuid");
   const auth = getAuth();
   const [date, setDate] = useState();
   const [total, setTotal] = useState(0);
   const [sumTotal, setSumTotal] = useState(0);
-  const [deliveryOption, setDeliveryOption] = useState(true);
+  const [deliveryOption, setDeliveryOption] = useState(false);
   const [deliverPrices, setDeliveryPrices] = useState({
     standard: 5,
     express: 9,
   });
   const [test, setTest] = useState([]);
+  const [disabled, setDisabled] = useState(true);
   const { items, removeThis } = useFetch(
     query(
       collection(db, "user_cart"),
       where("user_id", "==", auth.currentUser.uid)
     )
   );
-  // const [itemss] = items ? items[0].data.products_id : null;
   useEffect(() => {
     items ? setTest(items[0].data.products_id) : setTest(null);
+    if(test){
+      test.length !== 0 ? setDisabled(false): setDisabled(true)
+    }
   }, [test, items]);
   // ------------------- Sum all items price
   useEffect(() => {
@@ -53,7 +57,6 @@ function Cart() {
       }, 0);
       setTotal(sum);
     }
-    // console.log(items, " items");
   }, [items, total]);
   useEffect(() => {
     // ----------- Generate delivery estimation
@@ -84,20 +87,6 @@ function Cart() {
     } else {
       console.log("doc dont exist");
     }
-  };
-  // TODO: ------------------------ STRIPE
-  let stripePromise;
-  const getStripe = () => {
-    if (!stripePromise) {
-      stripePromise = loadStripe(
-        "pk_test_51LEAw0LdahQvKULxx2CGblVg8uKQYHatUi8Ty1m3Wbgs4elSiGLeu2DbQfNW0ipeQ38bDoBfyKLimHZ2qtTV2cmI00mBwLEqdy"
-      );
-    }
-    return stripePromise;
-  };
-  // TODO: -------------------- handle checkout
-  const handleCheckout = () => {
-    console.log("Checkout");
   };
   return (
     <div className={classes.container}>
@@ -181,8 +170,9 @@ function Cart() {
             </div>
           </div>
           <div className={classes.container__checkOut__sumUp__btnContainer}>
-            {/* <button onClick={handleCheckout}>Proceed to checkout</button> */}
-            <CheckoutBtn />
+            {/* <button onClick={handleCheckout}>Proceed to checkout</button>
+            <CheckoutBtn /> */}
+            <Checkout shipping={deliveryOption} items={test} disabled={disabled} />
             <button>Continue shopping</button>
           </div>
         </div>
