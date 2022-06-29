@@ -8,13 +8,10 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { db } from "../firebase-config";
-function Item({ data, id, allListings, icon, bg, addToCart, disable }) {
+function Item({ data, id, allListings, icon, bg, addToCart, disable, removeItem, editItem }) {
   const { v4: uuidv4 } = require("uuid");
   const [isDisabled, setIsDisabled] = useState(true);
-  const updateDisabled = async (id) => {
-    //TODO: Get alll Items from cart
-    // If items in cart id matches item This item id set Disabled to true
-  };
+ 
   useEffect(() => {
     // console.log(data, "Disabled");
     // console.log(data);
@@ -68,6 +65,7 @@ function Item({ data, id, allListings, icon, bg, addToCart, disable }) {
                   text="Edit"
                   bg={"#4AD17E"}
                   icon={icon[1]}
+                  modal={true}
                 />
               </div>
             )}
@@ -86,11 +84,13 @@ function Item({ data, id, allListings, icon, bg, addToCart, disable }) {
                 </div>
                 {/* This button  */}
                 <ProductButton
+                  page={true}
+                  disable={disable}
                   key={uuidv4()}
                   text={!disable ? "Add to Cart" : "Item in Cart"}
                   bg={!disable ? bg : "#6C6C6C"}
                   icon={!disable ? icon[0] : null}
-                  addToCart={() => {
+                  clickFunc={() => {
                     addToCart(data, id);
                     // if (!isDisabled) {
                     //   addToCart(data, id);
@@ -112,12 +112,18 @@ function Item({ data, id, allListings, icon, bg, addToCart, disable }) {
                 text="Delete"
                 bg={bg}
                 icon={icon[0]}
+                clickFunc={()=>{
+                  removeItem(id)
+                }}
               />,
               <ProductButton
                 key={uuidv4()}
                 text="Edit"
                 bg={"#4AD17E"}
                 icon={icon[1]}
+                clickFunc={()=>{
+                  editItem();
+                }}
               />,
             ]}
           </div>

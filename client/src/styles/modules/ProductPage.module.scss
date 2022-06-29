@@ -1,4 +1,17 @@
 @import "../varaibles.scss";
+// .disabled{
+//   color: rgb(193, 193, 193) !important;
+//   background: gray !important;
+// }
+// .enabled {
+//   button {
+//     transition: all ease-in-out 200ms;
+//           &:hover {
+//         box-shadow: $button-shadow;
+//         transform: scale(1.05);
+//       }
+//   }
+// }
 .container {
   height: 90vh;
   max-height: 850px;
@@ -155,15 +168,29 @@
       border-radius: 6px;
       box-shadow: $shadow-item-bottom;
       width: 35%;
-      transition: all ease-in-out 200ms;
+      // transition: all ease-in-out 200ms;
       @include breakpoint(sm) {
         font-size: 13px;
         padding: 5px 0;
       }
-      &:hover {
-        box-shadow: $button-shadow;
-        transform: scale(1.05);
-      }
+      // &:hover {
+      //   box-shadow: $button-shadow;
+      //   transform: scale(1.05);
+      // }
     }
+   
+  }
+}
+.disabled{
+  color: rgb(193, 193, 193) !important;
+  background: gray !important;
+}
+.enabled {
+  button {
+    transition: all ease-in-out 200ms !important;
+       &:hover {
+        box-shadow: $button-shadow !important;
+        transform: scale(1.05) !important;
+      }
   }
 }

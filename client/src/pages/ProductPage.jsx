@@ -6,25 +6,49 @@ import { useParams } from "react-router-dom";
 import { db } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 import BackButton from "../components/buttons/BackButton";
+import { getCartItems, getUpdatedCart } from "../helpers/cartFunctionality/cart";
+import { toast } from "react-toastify";
 function ProductPage() {
   const { productId } = useParams();
   const [item, setItem] = useState({});
+  const [itemExistsInCart, setItemExists] = useState([]);
+  const [disableBtn, setDisableBtn] = useState(false);
+  const [itemId, setItemId] = useState("");
+  const check = (item) => {
+    if (itemExistsInCart.includes(item)) {
+      setDisableBtn(true)
+      // console.log('Yes includes');
+    } else {
+      setDisableBtn(false)
+      // console.log('No it dose not');
+    }
+  };
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const docRef = doc(db, "listing", productId);
         const docSnap = await getDoc(docRef);
         setItem(docSnap.data());
-
-        // console.log(docSnap.data());
-        // console.log(productId);
+        setItemId(docSnap.id);
+        // console.log(docSnap.id)
+        // console.log(item, 'Items after');
       } catch (err) {
         console.log(err);
       }
     };
     fetchProduct();
-    check();
+   getUpdatedCart().then(data=>{
+    setItemExists(data);
+   })
   }, []);
+  useEffect(()=>{
+    check(itemId)
+    console.log(itemExistsInCart, 'Items Exist in Cart');
+    console.log(item, 'Oryginal item')
+  }, [itemExistsInCart, item])
+  // useEffect(()=>{
+  //   setItemExists()
+  // },[itemExistsInCart])
   const imageSwap = (index) => {
     // Make a copy of all items in state
     let items = [...item.imageUrls];
@@ -38,7 +62,10 @@ function ProductPage() {
     setItem({ ...item, imageUrls: items });
   };
   // here ---- >
-  const check = () => {};
+  const handleClick = () => {
+    getCartItems(null,item, productId);
+    
+  };
 
   return (
     <div className={classes.container}>
@@ -118,7 +145,13 @@ function ProductPage() {
         </div>
       </div>
       <div className={classes.container__btnContainer}>
-        <button>Add to cart</button>
+        <button disabled={disableBtn} className={disableBtn ? classes.disabled : classes.enabled} onClick={()=>{
+        if(!disableBtn){
+          handleClick();
+          setDisableBtn(true);
+          toast.success('Product added in cart')
+        } 
+        }}>{disableBtn ? 'Item stored in cart' : 'Add to cart'}</button>
       </div>
     </div>
   );

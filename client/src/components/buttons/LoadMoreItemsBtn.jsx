@@ -19,20 +19,29 @@ function LoadMoreItemsBtn({ inc, handleClick }) {
     getSize();
     // setHide(false);
   }, []);
-
+useEffect(()=>{
+  inc(increase)
+  increase >= itemsInDb ? setHide(true) : setHide(false)
+  // if (increase >= itemsInDb ) {
+  //   setHide(true);
+  // } else {
+  //   setHide(false)
+  // }
+}, [increase, itemsInDb])
   return (
     <div
       className={`${classes.bottomBtn} ${hide && classes.bottomBtn__hidden}`}
     >
       <button
         onClick={() => {
-          if (itemsInDb <= increase) {
+           if (itemsInDb <= increase) {
             setHide(true);
           }
           setIncrease((prev) => {
             return prev + 9;
           });
-
+         
+          
           //   incrementItemLimit();
         }}
       >

@@ -3,6 +3,7 @@ import shirt from "../../assets/jpeg/shirt.jpg";
 import { AiFillHeart, AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 function CartItem({ data, removeItem }) {
   useEffect(() => {
     // console.log(data);
@@ -41,6 +42,7 @@ function CartItem({ data, removeItem }) {
                 onClick={(e) => {
                   e.preventDefault();
                   removeItem(data.item_id, data.docID);
+                  toast.success('Product removed from cart ')
                 }}
               >
                 <AiFillDelete />
