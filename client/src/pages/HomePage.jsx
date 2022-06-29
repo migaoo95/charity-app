@@ -23,11 +23,12 @@ import useFetch from "../hooks/useFetch";
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-
+import { toast } from "react-toastify";
 function HomePage() {
   const { v4: uuidv4 } = require("uuid");
   const [cartData, setCartData] = useState();
   const [itemIdDisable, setItemIdDisable] = useState([]);
+  const [increase, setIncrease] = useState(9);
   const auth = getAuth();
   // TODO:
   const check = (item) => {
@@ -97,6 +98,7 @@ function HomePage() {
         user_id: auth.currentUser.uid,
         docID: docID,
       });
+      toast.success('Item added to cart !')
       console.log(currentItemsArr);
       console.log(docSnap.data());
     } else {
@@ -108,7 +110,7 @@ function HomePage() {
   const [whileSearch, setWhileSearch] = useState(false);
   const [tempStoreItem, setTempStoreItem] = useState([]);
   // ----------------- custom Hook param  ***
-  const [increase, setIncrease] = useState(9);
+  // const [increase, setIncrease] = useState(9);
   const inc = (increaseValue) => {
     setIncrease(increaseValue);
     incrementItemLimit();
@@ -150,6 +152,7 @@ function HomePage() {
             tempStoreItem.map((item) => {
               return (
                 <Item
+                  page={true}
                   bg={"#DD9788"}
                   key={item.id}
                   id={item.id}

@@ -14,6 +14,7 @@ import ProductPage from "./pages/ProductPage";
 import Checkout from "./components/Checkout";
 import "@stripe/stripe-js";
 import Success from "./pages/CheckoutOptions/Success";
+import EditProduct from "./components/EditForm";
 function App() {
   return (
     <div className="mainContainer">
@@ -37,13 +38,14 @@ function App() {
             <Route path="/charities/:itemId" element={<Charity />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/edit/:itemId" element={<EditProduct />} />
             {/* Testing Route */}
             <Route path="/test" element={<Checkout />} />
             
           </Route>
         </Routes>
       </Router>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} />
     </div>
   );
 }
