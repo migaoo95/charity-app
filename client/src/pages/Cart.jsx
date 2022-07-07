@@ -20,6 +20,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutBtn from "../components/buttons/CheckoutBtn";
 import Checkout from "../components/Checkout";
+import { AiFillHeart, AiFillDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 function Cart() {
   const { v4: uuidv4 } = require("uuid");
   const auth = getAuth();
@@ -41,8 +43,8 @@ function Cart() {
   );
   useEffect(() => {
     items ? setTest(items[0].data.products_id) : setTest(null);
-    if(test){
-      test.length !== 0 ? setDisabled(false): setDisabled(true)
+    if (test) {
+      test.length !== 0 ? setDisabled(false) : setDisabled(true);
     }
   }, [test, items]);
   // ------------------- Sum all items price
@@ -78,11 +80,13 @@ function Cart() {
         return item.item_id !== id;
       });
       removeThis();
+      toast.success("Product removed from cart");
       await setDoc(doc(db, "user_cart", docID), {
         products_id: itemsCopy,
         user_id: auth.currentUser.uid,
         docID: docID,
       });
+
       // Update state
     } else {
       console.log("doc dont exist");
@@ -106,6 +110,7 @@ function Cart() {
                     removeItem={removeItem}
                     key={uuidv4()}
                     data={item}
+                    btn_one={{ text: "Watch", icon: <AiFillHeart /> }}
                   />
                 );
               })
@@ -172,7 +177,11 @@ function Cart() {
           <div className={classes.container__checkOut__sumUp__btnContainer}>
             {/* <button onClick={handleCheckout}>Proceed to checkout</button>
             <CheckoutBtn /> */}
-            <Checkout shipping={deliveryOption} items={test} disabled={disabled} />
+            <Checkout
+              shipping={deliveryOption}
+              items={test}
+              disabled={disabled}
+            />
             <button>Continue shopping</button>
           </div>
         </div>

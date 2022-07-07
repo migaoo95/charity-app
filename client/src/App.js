@@ -41,11 +41,10 @@ function App() {
             <Route path="/edit/:itemId" element={<EditProduct />} />
             {/* Testing Route */}
             <Route path="/test" element={<Checkout />} />
-            
           </Route>
         </Routes>
       </Router>
-      <ToastContainer autoClose={3000} />
+      <ToastContainer autoClose={2000} />
     </div>
   );
 }

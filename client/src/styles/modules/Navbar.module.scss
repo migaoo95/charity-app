@@ -3,6 +3,9 @@
 .wrapper {
   background: $main-bg;
 }
+.shadow {
+  box-shadow: $shadow-oranginga;
+}
 .header {
   height: 65px;
   background: $nav-prod-bg;
@@ -119,6 +122,23 @@
           color: black !important;
         }
       }
+      &__activeCart {
+        background: red !important;
+        button {
+          border: 2px solid red !important;
+        }
+        // border-radius: 10px !important;
+        // border: 2px solid $nav-li-color !important;
+        // color: $nav-li-color !important;
+        // fill: $nav-li-color !important;
+        // @include breakpoint(sm) {
+        //   border: none !important;
+        //   background: grey;
+        //   width: 100%;
+        //   border-radius: 0 !important;
+        //   color: black !important;
+        // }
+      }
 
       &__liIcon {
         &:first-child {
@@ -186,11 +206,12 @@
     }
     &__logcart {
       display: flex;
-      // width: 100%;
       align-items: center;
       justify-content: space-between;
+      &__activeCart {
+        border: 2px solid $nav-li-color !important;
+      }
       &__active {
-        // border: 3px solid $blueBtn;
         box-shadow: $shadow-blue;
       }
       @include breakpoint(sm) {
@@ -202,15 +223,33 @@
         }
       }
       button {
-        display: flex;
-        align-items: center;
-        color: white;
-        fill: white;
-        background: $greenBtn;
-        border-radius: 30px;
-        padding: 5px 12px;
         transition: 0.2s ease-in-out all;
-        margin-right: 30px;
+        &:nth-child(2) {
+          display: flex;
+          align-items: center;
+          background: $orangina;
+          padding: 7px;
+          border-radius: 20px;
+          margin-right: 15px;
+          &:hover {
+            box-shadow: $shadow-oranginga;
+          }
+        }
+        &:nth-child(1) {
+          display: flex;
+          align-items: center;
+          color: white;
+          fill: white;
+          background: $greenBtn;
+          border: 2px $greenBtn solid;
+          border-radius: 30px;
+          padding: 5px 12px;
+          margin-right: 15px;
+          &:hover {
+            box-shadow: $shadow-green;
+          }
+        }
+
         @include breakpoint(sm) {
           margin-right: 10px;
           background: none;
@@ -225,7 +264,7 @@
           }
         }
         &:hover {
-          box-shadow: $shadow-blue;
+          // box-shadow: $shadow-blue;
         }
         span {
           margin-right: 8px;

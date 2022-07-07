@@ -9,6 +9,9 @@
   @include breakpoint(sm) {
     // padding: 0 30px;
   }
+  &__blur {
+    filter: blur(10px);
+  }
 }
 .mainLeyout {
   position: relative;
@@ -16,6 +19,7 @@
   top: 0;
   margin: 0 auto;
   margin-top: 10px;
+  // filter: blur(3px);
   @include breakpoint(sm) {
     padding: 0 15px;
   }

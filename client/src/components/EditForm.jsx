@@ -357,7 +357,7 @@ function EditProduct() {
       </div>
     
       <div className={classes.formContainer__buttonContainer}>
-        <button onClick={clearFields}>Cancel</button>
+        <button onClick={clearFields}>Exit</button>
         <button onClick={handleSubmit}>Edit Product</button>
       </div>
     </form>

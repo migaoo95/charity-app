@@ -9,12 +9,13 @@ import { ReactComponent as Cart } from "../assets/svg/cartIcon.svg";
 import { HiMenu } from "react-icons/hi";
 import { GiLoveHowl } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 // ------------------------- { google Auth }
 import { getAuth } from "firebase/auth";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-function Navbar() {
+function Navbar({ showModal, highlight }) {
   // ---------------------- { getParams }
   const { itemId, productId } = useParams();
   const auth = getAuth();
@@ -143,7 +144,7 @@ function Navbar() {
             <button
               className={
                 location.pathname === "/cart"
-                  ? classes.header__main__logcart__active
+                  ? classes.header__main__logcart__activeCart
                   : ""
               }
               onClick={() => {
@@ -155,6 +156,19 @@ function Navbar() {
             >
               <span>Cart</span>
               <Cart width={27} />
+            </button>
+            <button
+              className={highlight && classes.shadow}
+              // className={
+              //   location.pathname === "/cart"
+              //     ? classes.header__main__logcart__activeCart
+              //     : ""
+              // }
+              onClick={() => {
+                showModal("Hello");
+              }}
+            >
+              <AiFillHeart fill="white" size={25} />
             </button>
             <div>
               <Exit onClick={onLogout} className={classes.exitBtn} width={33} />
