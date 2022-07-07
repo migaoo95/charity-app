@@ -1,0 +1,6 @@
+@import "../../varaibles.scss";
+.btns {
+  &:hover {
+    box-shadow: $shadow-item-bottom !important;
+  }
+}

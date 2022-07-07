@@ -8,10 +8,34 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { db } from "../firebase-config";
-function Item({ data, id, allListings, icon, bg, addToCart, disable, removeItem, editItem }) {
+import { addDoc, collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
+function Item({
+  data,
+  id,
+  allListings,
+  icon,
+  bg,
+  addToCart,
+  disable,
+  removeItem,
+  editItem,
+  disableLike,
+  getAllLikes,
+}) {
+  const auth = getAuth();
   const { v4: uuidv4 } = require("uuid");
   const [isDisabled, setIsDisabled] = useState(true);
- 
+  const like_item = async (id, auth, item) => {
+    const docRef = await addDoc(collection(db, "user_like"), {
+      item_id: id,
+      user_id: auth,
+      item: item,
+    });
+    getAllLikes();
+    toast.success("Item added to watchlist");
+  };
   useEffect(() => {
     // console.log(data, "Disabled");
     // console.log(data);
@@ -21,13 +45,19 @@ function Item({ data, id, allListings, icon, bg, addToCart, disable, removeItem,
       <div className={`${classes.item}`}>
         <div className={classes.item__image}>
           {allListings && (
-            <div className={classes.item__image__icon}>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <GiHearts fill="white" size={18} />
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                !disableLike
+                  ? like_item(id, auth.currentUser.uid, data)
+                  : toast.error("Product already in watchlist");
+              }}
+              className={`${classes.item__image__icon} ${
+                disableLike && classes.item__image__iconDisabled
+              }`}
+            >
+              <button>
+                <GiHearts fill={!disableLike ? "white" : "grey"} size={18} />
               </button>
             </div>
           )}
@@ -112,8 +142,8 @@ function Item({ data, id, allListings, icon, bg, addToCart, disable, removeItem,
                 text="Delete"
                 bg={bg}
                 icon={icon[0]}
-                clickFunc={()=>{
-                  removeItem(id)
+                clickFunc={() => {
+                  removeItem(id);
                 }}
               />,
               <ProductButton
@@ -121,7 +151,7 @@ function Item({ data, id, allListings, icon, bg, addToCart, disable, removeItem,
                 text="Edit"
                 bg={"#4AD17E"}
                 icon={icon[1]}
-                clickFunc={()=>{
+                clickFunc={() => {
                   editItem();
                 }}
               />,

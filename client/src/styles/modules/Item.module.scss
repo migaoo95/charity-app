@@ -40,6 +40,9 @@
         margin: 0 auto;
       }
     }
+    &__iconDisabled {
+      background: rgb(68, 68, 68) !important;
+    }
     &__icon {
       position: absolute;
       display: flex;

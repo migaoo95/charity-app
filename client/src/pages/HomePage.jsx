@@ -28,16 +28,26 @@ function HomePage() {
   const { v4: uuidv4 } = require("uuid");
   const [cartData, setCartData] = useState();
   const [itemIdDisable, setItemIdDisable] = useState([]);
+  const [itemLikeDisable, setLikeDisable] = useState([]);
   const [increase, setIncrease] = useState(9);
   const auth = getAuth();
   // TODO:
-  const check = (item) => {
+  const checkCart = (item) => {
     if (itemIdDisable.includes(item.id)) {
       return true;
     } else {
       return false;
     }
   };
+  const checkLike = (item) => {
+    if (itemLikeDisable.includes(item.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  // const checkLike = () =>{}
+  // TODO: Refactor two functions 1.
   const getFullCart = async () => {
     const q = query(
       collection(db, "user_cart"),
@@ -50,16 +60,26 @@ function HomePage() {
       doc.data().products_id.forEach((item) => {
         arr.push(item.item_id);
       });
-
-      console.log(doc.id, "My Data ", doc.data());
-      console.log("1. Passed Id ");
     });
     setItemIdDisable(arr);
   };
+  // TODO: Refactor two functions 2.
+  const getAllLikes = async () => {
+    const q = query(
+      collection(db, "user_like"),
+      where("user_id", "==", auth.currentUser.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    let arr = [];
+    querySnapshot.forEach((doc) => {
+      arr.push(doc.data().item_id);
+    });
+    setLikeDisable(arr);
+  };
   // ----------------------------- get user_id
   useEffect(() => {
-    // console.log(getDate());
     getFullCart();
+    getAllLikes();
   }, []);
   // ----------------------------- user_cart
   const addToCart = async (item, item_id) => {
@@ -71,17 +91,12 @@ function HomePage() {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
       passCartId(doc.id, item, item_id);
-      console.log("1. Passed Id ");
     });
 
     // 2. ---------------------- if it does push product into array within DB || if not create a collection for this user
   };
   const passCartId = async (docID, data, item_id) => {
-    // console.log(data, "data");
-    console.log(docID, "docID");
     const docRef = doc(db, "user_cart", docID);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -92,15 +107,12 @@ function HomePage() {
         docID,
       };
       currentItemsArr.push(dataCopy);
-      console.log(item_id, "itemId");
       await setDoc(doc(db, "user_cart", docID), {
         products_id: currentItemsArr,
         user_id: auth.currentUser.uid,
         docID: docID,
       });
-      toast.success('Item added to cart !')
-      console.log(currentItemsArr);
-      console.log(docSnap.data());
+      toast.success("Item added to cart !");
     } else {
       console.log("No such document!");
     }
@@ -152,6 +164,8 @@ function HomePage() {
             tempStoreItem.map((item) => {
               return (
                 <Item
+                  disable={checkCart(item)}
+                  disableLike={checkLike(item)}
                   page={true}
                   bg={"#DD9788"}
                   key={item.id}
@@ -160,6 +174,7 @@ function HomePage() {
                   allListings={true}
                   icon={[<MdAddShoppingCart size={20} />]}
                   addToCart={addToCart}
+                  getAllLikes={getAllLikes}
                 />
               );
             })}
@@ -169,7 +184,8 @@ function HomePage() {
               console.log();
               return (
                 <Item
-                  disable={check(item)}
+                  disable={checkCart(item)}
+                  disableLike={checkLike(item)}
                   bg={"#DD9788"}
                   key={item.id}
                   id={item.id}
@@ -177,6 +193,7 @@ function HomePage() {
                   allListings={true}
                   icon={[<MdAddShoppingCart size={20} />]}
                   addToCart={addToCart}
+                  getAllLikes={getAllLikes}
                 />
               );
             })

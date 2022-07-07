@@ -1,0 +1,21 @@
+@import "../varaibles.scss";
+.container {
+  position: absolute;
+  right: 0;
+  width: 600px;
+  // height: 300px;
+  background: white;
+  box-shadow: $shadow-item-bottom;
+  border-radius: 17px;
+  margin: 15px;
+  padding: 15px;
+  z-index: 5;
+}
+.click {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  // background: red;
+  z-index: 5;
+  cursor: pointer;
+}

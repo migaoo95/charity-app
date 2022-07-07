@@ -4,12 +4,23 @@ import { AiFillHeart, AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-function CartItem({ data, removeItem }) {
+
+function CartItem({
+  data,
+  removeItem,
+  btn_one,
+  like,
+  removeLike,
+  id,
+  addToCart,
+}) {
   useEffect(() => {
+    // console.log(window.location.pathname === "cart");
     // console.log(data);
+    console.log(data);
   }, []);
   return (
-    <Link to={`/${data.item_id}`}>
+    <Link to={`/${like ? id : data.item_id}`}>
       <div className={classes.container}>
         <div className={classes.container__imageContainer}>
           <img src={data.imageUrls[0]} alt="" />
@@ -33,16 +44,18 @@ function CartItem({ data, removeItem }) {
               <button
                 onClick={(e) => {
                   e.preventDefault();
+                  like && addToCart(data, id);
                 }}
               >
-                <AiFillHeart />
-                <p>Watch</p>
+                {btn_one.icon}
+                <p>{btn_one.text}</p>
               </button>
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  removeItem(data.item_id, data.docID);
-                  toast.success('Product removed from cart ')
+                  !like ? removeItem(data.item_id, data.docID) : removeLike();
+
+                  // toast.success("Product removed from cart ");
                 }}
               >
                 <AiFillDelete />
