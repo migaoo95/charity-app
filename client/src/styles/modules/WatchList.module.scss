@@ -2,7 +2,10 @@
 .container {
   position: absolute;
   right: 0;
-  width: 600px;
+  width: 500px;
+  @include breakpoint(sm) {
+    width: auto;
+  }
   // height: 300px;
   background: white;
   box-shadow: $shadow-item-bottom;
