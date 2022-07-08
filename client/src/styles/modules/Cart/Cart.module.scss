@@ -74,6 +74,15 @@
         width: 100%;
         margin-bottom: 15px;
       }
+      &__select {
+        // margin-top: 20px;
+        // padding: 20px 0;
+        p {
+          font-size: 12px;
+          font-weight: 600;
+          margin: 10px 0;
+        }
+      }
       &__heading {
         margin-bottom: 10px;
         padding-bottom: 5px;

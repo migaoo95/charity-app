@@ -144,7 +144,7 @@ function Navbar({ showModal, highlight }) {
             <button
               className={
                 location.pathname === "/cart"
-                  ? classes.header__main__logcart__activeCart
+                  ? `${classes.header__main__logcart__activeCart}`
                   : ""
               }
               onClick={() => {

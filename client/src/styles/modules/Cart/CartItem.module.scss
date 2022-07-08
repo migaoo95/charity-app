@@ -68,6 +68,10 @@
         }
       }
       &__btns {
+        &__disable {
+          background: grey !important;
+          box-shadow: none !important;
+        }
         display: flex;
 
         button {

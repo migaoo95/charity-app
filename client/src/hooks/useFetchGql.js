@@ -22,7 +22,7 @@ const useFetchGql = (query, variables) => {
         if (isMouted) {
           setData(data);
           setLoading(false);
-          console.log(data.data.CHC.getCharities.list, "useFetch");
+          // console.log(data.data.CHC.getCharities.list, "useFetch");
         }
       })
       .catch((err) => {

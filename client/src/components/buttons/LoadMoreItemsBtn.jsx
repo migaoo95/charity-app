@@ -7,9 +7,7 @@ function LoadMoreItemsBtn({ inc, handleClick }) {
   const [itemsInDb, setItemsInDb] = useState(0);
   const [increase, setIncrease] = useState(9);
   const [hide, setHide] = useState(false);
-  // const charitiesSwitch =
-  //   window.location.pathname === "/charities" ? true : false;
-  // const { page } = window.loc
+
   const getSize = async () => {
     const sizeRef = doc(db, "count", "T9wguA8kalgZYEnMJpQn");
     const snapSize = await getDoc(sizeRef);
@@ -17,32 +15,23 @@ function LoadMoreItemsBtn({ inc, handleClick }) {
   };
   useEffect(() => {
     getSize();
-    // setHide(false);
   }, []);
-useEffect(()=>{
-  inc(increase)
-  increase >= itemsInDb ? setHide(true) : setHide(false)
-  // if (increase >= itemsInDb ) {
-  //   setHide(true);
-  // } else {
-  //   setHide(false)
-  // }
-}, [increase, itemsInDb])
+
+  useEffect(() => {
+    inc(increase);
+    increase >= itemsInDb ? setHide(true) : setHide(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [increase, itemsInDb]);
   return (
     <div
       className={`${classes.bottomBtn} ${hide && classes.bottomBtn__hidden}`}
     >
       <button
         onClick={() => {
-           if (itemsInDb <= increase) {
-            setHide(true);
-          }
+          itemsInDb <= increase && setHide(true);
           setIncrease((prev) => {
             return prev + 9;
           });
-         
-          
-          //   incrementItemLimit();
         }}
       >
         Load more products

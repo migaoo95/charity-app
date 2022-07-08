@@ -134,6 +134,12 @@
         }
       }
       &__wishBtn {
+        &__disable {
+          background: grey !important;
+          color: rgb(184, 184, 184) !important;
+          fill: rgb(184, 184, 184) !important;
+          box-shadow: none !important;
+        }
         button {
           display: flex;
           align-items: center;
@@ -178,19 +184,18 @@
       //   transform: scale(1.05);
       // }
     }
-   
   }
 }
-.disabled{
+.disabled {
   color: rgb(193, 193, 193) !important;
   background: gray !important;
 }
 .enabled {
   button {
     transition: all ease-in-out 200ms !important;
-       &:hover {
-        box-shadow: $button-shadow !important;
-        transform: scale(1.05) !important;
-      }
+    &:hover {
+      box-shadow: $button-shadow !important;
+      transform: scale(1.05) !important;
+    }
   }
 }

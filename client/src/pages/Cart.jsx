@@ -1,6 +1,8 @@
 import classes from "../styles/modules/Cart/Cart.module.scss";
 import CartItem from "../components/Cart/CartItem";
 import useFetch from "../hooks/useFetch";
+import useFetchGql from "../hooks/useFetchGql";
+import { QGL_QUERY } from "../API/queries";
 import { db } from "../firebase-config";
 import {
   where,
@@ -18,11 +20,27 @@ import { getDate } from "../helpers/helpers";
 // -------------------------- Stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import CheckoutBtn from "../components/buttons/CheckoutBtn";
+// import CheckoutBtn from "../components/buttons/CheckoutBtn";
 import Checkout from "../components/Checkout";
 import { AiFillHeart, AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
+import Select from "react-select";
 function Cart() {
+  // TODO: Charities select
+  const { data, loading } = useFetchGql(QGL_QUERY, { limit: 25 });
+  const [gqlData, setGqlData] = useState([{}]);
+  useEffect(() => {
+    const dataClone = [];
+    data &&
+      data.data.CHC.getCharities.list.forEach((item) => {
+        dataClone.push({
+          value: item.id,
+          label: item.name,
+        });
+      });
+    setGqlData(dataClone);
+    // console.log(dataClone, "Clone");
+  }, [data]);
   const { v4: uuidv4 } = require("uuid");
   const auth = getAuth();
   const [date, setDate] = useState();
@@ -173,6 +191,10 @@ function Cart() {
               <p>Total</p>
               <p>${sumTotal.toFixed(2)}</p>
             </div>
+          </div>
+          <div className={classes.container__checkOut__sumUp__select}>
+            <p>Select charity that will recive all funds from this purchase</p>
+            <Select options={gqlData} />
           </div>
           <div className={classes.container__checkOut__sumUp__btnContainer}>
             {/* <button onClick={handleCheckout}>Proceed to checkout</button>
