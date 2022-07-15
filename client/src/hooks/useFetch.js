@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { getDocs } from "firebase/firestore";
-import { db } from "../firebase-config";
 const useFetch = (docRef) => {
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,6 +39,7 @@ const useFetch = (docRef) => {
     return () => {
       isMouted.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMouted, count, change]);
   return { items, loading, incrementItemLimit, count, removeThis };
 };

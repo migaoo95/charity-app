@@ -3,10 +3,8 @@ import { GiHearts } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import ProductButton from "./buttons/ProductButton";
 import { AiFillHeart } from "react-icons/ai";
+// eslint-disable-next-line no-unused-vars
 import { v4 as uuidv4 } from "uuid";
-import { doc, updateDoc } from "firebase/firestore";
-import { useEffect } from "react";
-import { useState } from "react";
 import { db } from "../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -26,8 +24,8 @@ function Item({
 }) {
   const auth = getAuth();
   const { v4: uuidv4 } = require("uuid");
-  const [isDisabled, setIsDisabled] = useState(true);
   const like_item = async (id, auth, item) => {
+    // eslint-disable-next-line no-unused-vars
     const docRef = await addDoc(collection(db, "user_like"), {
       item_id: id,
       user_id: auth,
@@ -36,10 +34,10 @@ function Item({
     getAllLikes();
     toast.success("Item added to watchlist");
   };
-  useEffect(() => {
-    // console.log(data, "Disabled");
-    // console.log(data);
-  }, []);
+  // TODO: Set condition &&
+  // useEffect(() => {
+  //   console.log(data);
+  // }, []);
   return (
     <Link to={`/${id}`}>
       <div className={`${classes.item}`}>
@@ -122,13 +120,6 @@ function Item({
                   icon={!disable ? icon[0] : null}
                   clickFunc={() => {
                     addToCart(data, id);
-                    // if (!isDisabled) {
-                    //   addToCart(data, id);
-                    //   // Update this item disabled property
-                    // } else {
-                    //   updateDisabled(id);
-                    //   console.log("Disabled");
-                    // }
                   }}
                 />
               </div>

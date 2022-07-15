@@ -1,4 +1,3 @@
-//  Navigate -> Used to redirect , Outlet -> used to render child elements?
 import { Navigate, Outlet } from "react-router-dom";
 import { useUserStatus } from "../hooks/useUserStatus";
 import Leyout from "./Leyout";

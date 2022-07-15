@@ -1,12 +1,9 @@
-// import googleBtn from "../assets/png/googleBtn.png";
-// Google OAuth
 import GoogleOAuth from "./GoogleOAuth";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// Toast Alerts
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Firebase imports --------------- { Firebase }
@@ -18,6 +15,7 @@ import {
 // Import database
 import { db } from "../firebase-config";
 import { serverTimestamp, setDoc, doc } from "firebase/firestore";
+// eslint-disable-next-line no-unused-vars
 import { v4 as uuidv4 } from "uuid";
 function SignUp() {
   const { v4: uuidv4 } = require("uuid");
@@ -52,19 +50,12 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Create auth
       const auth = getAuth();
-      // await setDoc(doc(db, "user_cart", uuidv4()), {
-      //   user_id: auth.currentUser.uid,
-      //   product_id: [],
-      // });
-      // call create user -- await profile creation / registering the user --> returns a promise
       const userDetails = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      // get created user
       const user = userDetails.user;
       createCart(user);
       // Update profile/ with current user and update displayName with the formData name
@@ -72,18 +63,12 @@ function SignUp() {
         displayName: name,
       });
       // ---------------------------------- { update users document in db }
-      // Copy entire form data state
       const formDataClone = { ...formData };
       delete formDataClone.password;
       formDataClone.timestamp = serverTimestamp();
 
-      // await setDoc(doc(db, "user_cart", uuidv4()), {
-      //   user_id: user.uid,
-      //   product_id: [],
-      // });
       await setDoc(doc(db, "users", user.uid), formDataClone);
 
-      // Redirect to home page
       navigate("/");
     } catch (error) {
       if (email === "" || password === "") {
@@ -123,6 +108,7 @@ function SignUp() {
         <div className="relative mb-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
+              disabled
               type="submit"
               className="p-1 focus:outline-none focus:shadow-outline"
             >
@@ -146,6 +132,7 @@ function SignUp() {
         <div className="relative mb-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
+              disabled
               type="submit"
               className="p-1 focus:outline-none focus:shadow-outline"
             >
@@ -170,6 +157,7 @@ function SignUp() {
         <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
+              disabled
               type="submit"
               className="p-1 focus:outline-none focus:shadow-outline"
             >

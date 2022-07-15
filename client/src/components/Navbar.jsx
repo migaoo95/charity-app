@@ -22,15 +22,11 @@ function Navbar({ showModal, highlight }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuToggle, setMenuToggle] = useState(true);
+
   const handleMenuToggle = () => {
     setMenuToggle((prev) => !prev);
   };
-  // const [changeDetails, setChangeDetails] = useState(false);
-  // const [formData, setFormData] = useState({
-  //   name: auth.currentUser.displayName,
-  //   email: auth.currentUser.email,
-  // });
-  // const { name, email } = formData;
+
   const onLogout = () => {
     auth.signOut();
     navigate("/signup");
@@ -159,11 +155,6 @@ function Navbar({ showModal, highlight }) {
             </button>
             <button
               className={highlight && classes.shadow}
-              // className={
-              //   location.pathname === "/cart"
-              //     ? classes.header__main__logcart__activeCart
-              //     : ""
-              // }
               onClick={() => {
                 showModal("Hello");
               }}

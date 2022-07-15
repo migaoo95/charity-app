@@ -20,6 +20,7 @@ export const useUserStatus = () => {
     return () => {
       isMouted.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMouted]);
   return { loggedIn, checkingStatus };
 };

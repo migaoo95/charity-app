@@ -7,8 +7,6 @@ import { db } from "../firebase-config";
 import {
   serverTimestamp,
   getDoc,
-  addDoc,
-  collection,
   increment,
   doc,
   updateDoc,
@@ -20,55 +18,45 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import blueT from '../assets/jpeg/blueT.jpeg'
-import {  v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {useParams} from 'react-router-dom'
-import {MdDelete} from 'react-icons/md'
+import { useParams } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 function EditProduct() {
-    const {itemId } = useParams()
-    const [item, setItem] = useState();
-    const [fileSwitch, setFileSwitch] = useState(false);
-    const [imageMax, setImageMax] = useState(3);
-    const [triggerChange, setTrigger] = useState(0);
-    const [imageStore, setImageStore] = useState()
-    const getItem = async (item_id) =>{
+  const { itemId } = useParams();
+  const [item, setItem] = useState();
+  const [fileSwitch, setFileSwitch] = useState(false);
+  const [imageMax, setImageMax] = useState(3);
+  const [triggerChange, setTrigger] = useState(0);
+  const getItem = async (item_id) => {
     const docRef = doc(db, "listing", item_id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-        setItem(docSnap.data())
-        let editData = {
-            name: docSnap.data().name,
-            type: docSnap.data().type,
-            desc: docSnap.data().desc,
-            price: docSnap.data().price,
-            images: docSnap.data().imageUrls,
-        }
-        setItemData(editData)
-        console.log(docSnap.data());
+      setItem(docSnap.data());
+      let editData = {
+        name: docSnap.data().name,
+        type: docSnap.data().type,
+        desc: docSnap.data().desc,
+        price: docSnap.data().price,
+        images: docSnap.data().imageUrls,
+      };
+      setItemData(editData);
     } else {
-    console.log("No such document!");
-}
+      console.log("No such document!");
     }
-    useEffect(()=>{
- // TODO: Get listing from params
-//  setImageStore(item.imageUrls);
- getItem(itemId)
-    }, [triggerChange])
-    const removeImage = (image) =>{
-        let images = itemData.images.filter(img=>{
-            return img !==image;
-        })
-        setItem({...item,
-            imageUrls: images})
-            // console.log(images);
-
-        setItemData({...itemData,
-        images: images})
-       
-        // console.log(images);
-    }
+  };
+  useEffect(() => {
+    getItem(itemId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [triggerChange]);
+  const removeImage = (image) => {
+    let images = itemData.images.filter((img) => {
+      return img !== image;
+    });
+    setItem({ ...item, imageUrls: images });
+    setItemData({ ...itemData, images: images });
+  };
 
   const countAddItem = async () => {
     const countRef = doc(db, "count", "T9wguA8kalgZYEnMJpQn");
@@ -83,17 +71,15 @@ function EditProduct() {
     price: parseFloat(0),
     images: {},
   });
-  useEffect(()=>{
- if(item){
-    let imagesAllowed = 3 - item.imageUrls.length;
-    setImageMax(imagesAllowed)
-    console.log(imageMax);
-    console.log(item.imageUrls);
- }
-}, [item])
+  useEffect(() => {
+    if (item) {
+      let imagesAllowed = 3 - item.imageUrls.length;
+      setImageMax(imagesAllowed);
+    }
+  }, [item]);
   const { name, desc, price, images } = itemData;
   const auth = getAuth();
-  // ------------------------------------- { Componend Did Mount }
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -103,16 +89,13 @@ function EditProduct() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ------------------------------------- { Handle Input Change }
   const handleChange = (e) => {
-    // If target is files assign it to images
     if (e.target.files) {
       setItemData({
         ...itemData,
         images: e.target.files,
       });
       setFileSwitch(true);
-      
     } else {
       setItemData({
         ...itemData,
@@ -123,7 +106,7 @@ function EditProduct() {
   // ------------------------------------- { Submit Form Function }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Heyyyyyy');
+    console.log("Heyyyyyy");
     // Store Images --->
     const imageStore = async (image) => {
       return new Promise((resolve, reject) => {
@@ -140,15 +123,13 @@ function EditProduct() {
         uploadTask.on(
           "state_changed",
           (snapshot) => {
+            // eslint-disable-next-line no-unused-vars
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
             switch (snapshot.state) {
               case "paused":
-                console.log("Upload is paused");
                 break;
               case "running":
-                console.log("Upload is running");
                 break;
               default:
             }
@@ -168,33 +149,19 @@ function EditProduct() {
         );
       });
     };
-    // TODO: 
     const imageUrls = item.imageUrls;
-    const files =  await Promise.all(
-        [...images].map((image) => imageStore(image))
-      )
-      .catch(() => {
-        // toast.error("Images not uploaded");
-        return;
+    const files = await Promise.all(
+      [...images].map((image) => imageStore(image))
+    ).catch(() => {
+      // toast.error("Images not uploaded");
+      return;
+    });
+    if (fileSwitch) {
+      files.forEach((file) => {
+        imageUrls.push(file);
       });
-     if(fileSwitch){
-        files.forEach(file=>{
-            imageUrls.push(file);
-          })
-     }
-      
-      console.log(files);
-    console.log( item.imageUrls, 'Files')
-    console.log(imageUrls, 'Imageurks');
-    // fileSwitch && files.map(file=>{
-    //  return   imageUrls.push(file)
-    // });
-    // await Promise.all(
-    //   [...images].map((image) => imageStore(image))
-    // ).catch(() => {
-    //   toast.error("Images not uploaded");
-    //   return;
-    // });
+    }
+
     countAddItem();
     const itemDataCopy = {
       ...itemData,
@@ -202,20 +169,17 @@ function EditProduct() {
       listingTimeStamp: serverTimestamp(),
     };
     delete itemDataCopy.images;
-    // console.log(itemDataCopy);
     // eslint-disable-next-line no-unused-vars
- if(imageMax !== 0 ){
-    const docRef = doc(db, 'listing', itemId)
-    await updateDoc(docRef, itemDataCopy);
-   // clearFields();
-   setTrigger((prev)=>{
-    return prev + 1;
-   })
-   toast.success("Listing Created");
- } else {
-    toast.error('Maximum 3 images make sure to delet an old image')
- }
-    // countAddItem();
+    if (imageMax !== 0) {
+      const docRef = doc(db, "listing", itemId);
+      await updateDoc(docRef, itemDataCopy);
+      setTrigger((prev) => {
+        return prev + 1;
+      });
+      toast.success("Listing Created");
+    } else {
+      toast.error("Maximum 3 images make sure to delet an old image");
+    }
   };
   const clearFields = () => {
     setItemData({
@@ -226,8 +190,6 @@ function EditProduct() {
       images: {},
     });
   };
-  //
-  //
 
   const myRef = useRef(null);
   const handleClick = () => {
@@ -305,57 +267,80 @@ function EditProduct() {
         ></textarea>
       </div>
       <div className={classes.formContainer__fileInputContainer}>
-        <div className={classes.formContainer__fileInputContainer__containerOne}>
-        <p>Add new image </p>
         <div
-          onClick={handleClick}
-          className={classes.formContainer__fileInputContainer__containerOne__customFileInput}
+          className={classes.formContainer__fileInputContainer__containerOne}
         >
-          <label htmlFor="file">
-            
-            {images.length > 0 ? (
-              Object.keys(images).map((key, i) => {
-                // console.log(images[key].name);
-                // console.log(typeof images[key], 'hey');
-                return (typeof images[key]=== 'string' && i === 0 ? <span>Select</span>: <span key={key}>{images[key].name} </span>);
-              })
-            ) : (
-              <span>Browse</span>
-            )}
-          </label>
-          <input
-            ref={myRef}
-            type="file"
-            name="images"
-            id="images"
-            onChange={handleChange}
-            max={imageMax}
-            accept=".jpg,.png,.jpeg"
-            multiple
-            required
-          />
+          <p>Add new image </p>
+          <div
+            onClick={handleClick}
+            className={
+              classes.formContainer__fileInputContainer__containerOne__customFileInput
+            }
+          >
+            <label htmlFor="file">
+              {images.length > 0 ? (
+                Object.keys(images).map((key, i) => {
+                  return typeof images[key] === "string" && i === 0 ? (
+                    <span>Select</span>
+                  ) : (
+                    <span key={key}>{images[key].name} </span>
+                  );
+                })
+              ) : (
+                <span>Browse</span>
+              )}
+            </label>
+            <input
+              ref={myRef}
+              type="file"
+              name="images"
+              id="images"
+              onChange={handleChange}
+              max={imageMax}
+              accept=".jpg,.png,.jpeg"
+              multiple
+              required
+            />
+          </div>
         </div>
-        </div>
-        <div className={classes.formContainer__fileInputContainer__containerTwo}>
-            <h1 className="text-center">Click red icon to delete an image</h1>
-            <div className={classes.formContainer__fileInputContainer__containerTwo__imgs}>
-          
-            {item && item.imageUrls.map(image =>{
-                return      (<div className={classes.formContainer__fileInputContainer__containerTwo__imgs__imgCon}>
-                <div className={classes.formContainer__fileInputContainer__containerTwo__imgs__imgCon__icon}>
-                    <MdDelete onClick={()=>{
-                      removeImage(image)
-                    }} fill="white" size={25}/>
-                </div>
-               <img src={image} alt="" srcset="" />
-               </div>)
-             
-            })}
-            </div>
-        
+        <div
+          className={classes.formContainer__fileInputContainer__containerTwo}
+        >
+          <h1 className="text-center">Click red icon to delete an image</h1>
+          <div
+            className={
+              classes.formContainer__fileInputContainer__containerTwo__imgs
+            }
+          >
+            {item &&
+              item.imageUrls.map((image) => {
+                return (
+                  <div
+                    className={
+                      classes.formContainer__fileInputContainer__containerTwo__imgs__imgCon
+                    }
+                  >
+                    <div
+                      className={
+                        classes.formContainer__fileInputContainer__containerTwo__imgs__imgCon__icon
+                      }
+                    >
+                      <MdDelete
+                        onClick={() => {
+                          removeImage(image);
+                        }}
+                        fill="white"
+                        size={25}
+                      />
+                    </div>
+                    <img src={image} alt="" srcset="" />
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </div>
-    
+
       <div className={classes.formContainer__buttonContainer}>
         <button onClick={clearFields}>Exit</button>
         <button onClick={handleSubmit}>Edit Product</button>

@@ -2,13 +2,10 @@ import classes from "../styles/modules/ItemCharity.module.scss";
 import twitter from "../assets/png/twt.png";
 import facebook from "../assets/png/fcb.png";
 import instagram from "../assets/png/insta.png";
-import boxarrow from "../assets/png/boxarrow.png";
-import { BsBoxArrowInRight } from "react-icons/bs";
 import { CgArrowRightR } from "react-icons/cg";
 import { spliter, urlShortener, stringShortener } from "../helpers/helpers";
-import { useEffect, useState } from "react";
-// import { useWindowSize } from "../hooks/useWindowSize";
 import { Link, useNavigate } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { v4 as uuidv4 } from "uuid";
 function Charity({ data, size }) {
   const { v4: uuidv4 } = require("uuid");
@@ -44,7 +41,6 @@ function Charity({ data, size }) {
           ) : (
             <p>{spliter(data.name)}</p>
           )}
-          {/* <img src={data.image.logo.small} alt="" /> */}
         </div>
         <div className={classes.container__topContainer__text}>
           <span>{data.name}</span>
@@ -77,7 +73,8 @@ function Charity({ data, size }) {
               }
             >
               {data.contact.social.length >= 1
-                ? data.contact.social.map((social) => {
+                ? // eslint-disable-next-line array-callback-return
+                  data.contact.social.map((social) => {
                     if (social.platform === "facebook") {
                       return (
                         <a
@@ -114,9 +111,6 @@ function Charity({ data, size }) {
                     }
                   })
                 : ""}
-              {/* <img src={facebook} alt="" />
-              <img src={insta} alt="" />
-              <img src={twitter} alt="" /> */}
             </div>
           </div>
         </div>

@@ -7,19 +7,24 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 // ---------- Firebase
 import { getAuth } from "firebase/auth";
-import { collection, query, where, orderBy,doc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase-config";
 import useFetch from "../hooks/useFetch";
 import { toast } from "react-toastify";
-import Form from "../components/Form";
-import EditForm from "../components/EditForm";
-import {useNavigate} from 'react-router-dom' 
+import { useNavigate } from "react-router-dom";
 function Listings() {
   const auth = getAuth();
   const navigate = useNavigate("");
   const [tempStoreItem, setTempStoreItem] = useState([]);
   const [whileSearch, setWhileSearch] = useState(false);
-  const [edit, setEdit] = useState(true)
+
   // ---------------------------- custom Hook data / query user items
   const { items, loading, removeThis } = useFetch(
     query(
@@ -33,25 +38,20 @@ function Listings() {
     setWhileSearch(hidden);
     setTempStoreItem(data);
   };
-  const removeItem = async (item_id) =>{
-    if(window.confirm('Are you sure you want to delete this product ?')){
-      await deleteDoc(doc(db, "listing", item_id)).then(()=>{
+  const removeItem = async (item_id) => {
+    if (window.confirm("Are you sure you want to delete this product ?")) {
+      await deleteDoc(doc(db, "listing", item_id)).then(() => {
         removeThis();
-        toast.success('Product succesfully deleted ')
+        toast.success("Product succesfully deleted ");
       });
     } else {
-      toast.success('Deletion cancelled')
+      toast.success("Deletion cancelled");
     }
-  }
-    // TODO: Edit user item
-    const editItem = () =>{
-      navigate('/edit')
-    }
+  };
+
   return (
     <>
       <div className={classes.container}>
-        
-  
         <div className={classes.container__text}>
           <p>My Listings</p>
         </div>
@@ -90,8 +90,8 @@ function Listings() {
                   allListings={false}
                   bg={"#E21313"}
                   removeItem={removeItem}
-                  editItem={()=>{
-                    navigate(`/edit/${item.id}`)
+                  editItem={() => {
+                    navigate(`/edit/${item.id}`);
                   }}
                   icon={[
                     <AiOutlineDelete size={20} />,
@@ -101,16 +101,12 @@ function Listings() {
               );
             })
           ) : (
-            <div>
+            <div className="flex justify-center w-full">
               <ClipLoader color={`#559CF8`} loading={loading} size={150} />
             </div>
           )}
         </div>
-        
       </div>
-      {/* <div className={classes.modal}>
-
-      </div> */}
     </>
   );
 }
