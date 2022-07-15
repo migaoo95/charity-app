@@ -32,6 +32,7 @@ const useFetchGql = (query, variables) => {
     return () => {
       isMouted.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMouted]);
   return { data, loading };
 };

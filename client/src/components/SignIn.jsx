@@ -1,17 +1,12 @@
-// import googleBtn from "../assets/png/googleBtn.png";
 import GoogleOAuth from "./GoogleOAuth";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-// State and Router
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// Firebase auth
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// Toast Alerts
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Google Provider Sign in
 
 function SignIn() {
   // Show and Hide password from an input
@@ -62,9 +57,6 @@ function SignIn() {
   return (
     <div className="px-7 md:w-5/6 md:mx-auto m-auto mt-[5%] h-4/6  ">
       <div className="text-center pt-2">
-        {/* <button className="px-8">
-          <img className="h-1/2" src={googleBtn} alt="" />
-        </button> */}
         <GoogleOAuth />
       </div>
       <div className="hrContainer my-4 md:mb-9">
@@ -74,15 +66,14 @@ function SignIn() {
           <hr />
         </div>
       </div>
-      {/* FORM COTNAIENR */}
       <form className="" onSubmit={handleSubmit}>
-        {/* INPUT EMAIL */}
         <label className="" htmlFor="email">
           Email
         </label>
         <div className="relative mb-4">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
+              disabled
               type="submit"
               className="p-1 focus:outline-none focus:shadow-outline"
             >
@@ -100,11 +91,11 @@ function SignIn() {
             autoComplete="off"
           />
         </div>
-        {/* INPUT PASSWORD */}
         <label htmlFor="password">Password</label>
         <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
+              disabled
               type="submit"
               className="p-1 focus:outline-none focus:shadow-outline"
             >

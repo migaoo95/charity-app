@@ -1,6 +1,10 @@
 @import "../../varaibles.scss";
 .btns {
+  box-shadow: none !important;
   &:hover {
-    box-shadow: $shadow-item-bottom !important;
+    box-shadow: none !important;
   }
+}
+.disabled {
+  box-shadow: none !important;
 }

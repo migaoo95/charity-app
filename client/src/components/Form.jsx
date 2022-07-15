@@ -1,15 +1,9 @@
 import classes from "../styles/modules/Form.module.scss";
 import { BsFilter } from "react-icons/bs";
 import Select, { components } from "react-select";
-// import SelectIn from "./SelectIn";
 import { useRef } from "react";
 import { customStylesCreate } from "../styles/customStyles/customSelect.js";
-// Interactivirt
-//
-//
-// Import Database
 import { db } from "../firebase-config";
-// Import documents and set documents
 import {
   serverTimestamp,
   addDoc,
@@ -18,7 +12,6 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-// Get user credentials
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   getStorage,
@@ -27,6 +20,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
+// eslint-disable-next-line no-unused-vars
 import { parse, v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -41,7 +35,8 @@ function Form() {
     name: "",
     type: "",
     desc: "",
-    price: parseFloat(0),
+    condition: "",
+    price: parseFloat(null),
     images: {},
   });
   const { name, desc, price, images } = itemData;
@@ -91,21 +86,18 @@ function Form() {
         uploadTask.on(
           "state_changed",
           (snapshot) => {
+            // eslint-disable-next-line no-unused-vars
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
             switch (snapshot.state) {
               case "paused":
-                console.log("Upload is paused");
                 break;
               case "running":
-                console.log("Upload is running");
                 break;
               default:
             }
           },
           (error) => {
-            // Handle unsuccessful uploads
             reject(error);
           },
           () => {
@@ -130,44 +122,50 @@ function Form() {
       ...itemData,
       imageUrls,
       listingTimeStamp: serverTimestamp(),
+      listingUser: auth.currentUser.displayName,
     };
     delete itemDataCopy.images;
     console.log(itemDataCopy);
     // eslint-disable-next-line no-unused-vars
     const docRef = await addDoc(collection(db, "listing"), itemDataCopy);
-    // clearFields();
+    clearFields();
     toast.success("Listing Created");
-    // countAddItem();
   };
   const clearFields = () => {
     setItemData({
       name: "",
       type: "",
       desc: "",
-      price: 0,
+      condition: "",
+      price: null,
       images: {},
     });
   };
-  //
-  //
 
   const myRef = useRef(null);
   const handleClick = () => {
     myRef.current.click();
   };
   const handleChangeTwo = (e) => {
-    console.log(e.label);
+    console.log(e.type);
     setItemData({
       ...itemData,
-      type: e.value,
+      [e.type]: e.value,
     });
   };
   const typesArr = [
-    { value: "clothing", label: "Fashion" },
-    { value: "electronic", label: "Electronics" },
-    { value: "toys", label: "Toys" },
-    { value: "HnB", label: "Health & Beauty" },
-    { value: "HnG", label: "Home & Garden" },
+    { value: "clothing", label: "Fashion", type: "type" },
+    { value: "electronic", label: "Electronics", type: "type" },
+    { value: "toys", label: "Toys", type: "type" },
+    { value: "HnB", label: "Health & Beauty", type: "type" },
+    { value: "Home", label: "Home appliances ", type: "type" },
+    { value: "Sport", label: "Sport ", type: "type" },
+    { value: "Education", label: "Education ", type: "type" },
+    { value: "Music", label: "Music ", type: "type" },
+  ];
+  const condition = [
+    { value: "Brand New", label: "Brand New", type: "condition" },
+    { value: "Used", label: "Used", type: "condition" },
   ];
   const DropdownIndicator = (props) => {
     return (
@@ -183,15 +181,27 @@ function Form() {
         <hr />
       </div>
       <div className={classes.formContainer__itemNameContainer}>
-        <p>Item name</p>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          placeholder="Enter Product Name"
-          className=""
-          onChange={handleChange}
-        />
+        <div className={classes.formContainer__itemNameContainer__name}>
+          <p>Item name</p>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            placeholder="Enter Product Name"
+            className=""
+            onChange={handleChange}
+          />
+        </div>
+        <div className={classes.formContainer__itemNameContainer__condition}>
+          <p>Condition</p>
+          <Select
+            name="condition"
+            onChange={handleChangeTwo}
+            options={condition}
+            styles={customStylesCreate}
+            components={{ DropdownIndicator }}
+          />
+        </div>
       </div>
       <div className={classes.formContainer__priceSelect}>
         <div className={classes.formContainer__priceSelect__priceInput}>
@@ -202,6 +212,8 @@ function Form() {
             name="price"
             type="number"
             placeholder="£0.00"
+            min="0"
+            step=".01"
           />
         </div>
         <div className={classes.formContainer__priceSelect__select}>
@@ -224,10 +236,13 @@ function Form() {
           id=""
           cols="30"
           rows="10"
+          placeholder="Brief descryption of the product that you want to list"
         ></textarea>
       </div>
       <div className={classes.formContainer__fileInputContainer}>
-        <p>Images</p>
+        <p>
+          Images <small className="ml-5">Select upto three images</small>
+        </p>
 
         <div
           onClick={handleClick}
@@ -236,7 +251,6 @@ function Form() {
           <label htmlFor="file">
             {images.length > 0 ? (
               Object.keys(images).map((key, i) => {
-                // console.log(images[key].name);
                 return <span key={key}>{images[key].name} </span>;
               })
             ) : (

@@ -231,11 +231,9 @@
         }
       }
       &:hover {
-        // box-shadow: $button-shadow;
         transform: scale(1.03);
       }
       span {
-        // margin-left: 5px;
         font-size: 13px;
         @include breakpoint(sm) {
           display: none;

@@ -14,19 +14,18 @@ import {
 } from "firebase/firestore";
 import { useEffect } from "react";
 import { getAuth } from "firebase/auth";
+// eslint-disable-next-line no-unused-vars
 import { v4 as uuidv4 } from "uuid";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { getDate } from "../helpers/helpers";
 // -------------------------- Stripe
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-// import CheckoutBtn from "../components/buttons/CheckoutBtn";
+
 import Checkout from "../components/Checkout";
-import { AiFillHeart, AiFillDelete } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Select from "react-select";
 function Cart() {
-  // TODO: Charities select
+  // eslint-disable-next-line no-unused-vars
   const { data, loading } = useFetchGql(QGL_QUERY, { limit: 25 });
   const [gqlData, setGqlData] = useState([{}]);
   useEffect(() => {
@@ -39,7 +38,6 @@ function Cart() {
         });
       });
     setGqlData(dataClone);
-    // console.log(dataClone, "Clone");
   }, [data]);
   const { v4: uuidv4 } = require("uuid");
   const auth = getAuth();
@@ -47,6 +45,7 @@ function Cart() {
   const [total, setTotal] = useState(0);
   const [sumTotal, setSumTotal] = useState(0);
   const [deliveryOption, setDeliveryOption] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [deliverPrices, setDeliveryPrices] = useState({
     standard: 5,
     express: 9,
@@ -89,7 +88,6 @@ function Cart() {
     setSumTotal(sum);
   }, [deliveryOption, total]);
   const removeItem = async (id, docID) => {
-    // console.log(id, "Data");
     const docRef = doc(db, "user_cart", docID);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -197,8 +195,6 @@ function Cart() {
             <Select options={gqlData} />
           </div>
           <div className={classes.container__checkOut__sumUp__btnContainer}>
-            {/* <button onClick={handleCheckout}>Proceed to checkout</button>
-            <CheckoutBtn /> */}
             <Checkout
               shipping={deliveryOption}
               items={test}

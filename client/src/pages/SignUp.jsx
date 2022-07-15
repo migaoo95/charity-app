@@ -1,18 +1,12 @@
 import logRegImg from "../assets/png/imgShop.png";
-
-// Components
 import SignIn from "../components/SignIn";
 import SignUpp from "../components/SignUp";
-// Stat
 import { useState } from "react";
 function SignUp() {
-  // User signing type ------------------ { Log in || Register }
   const [sign, setSign] = useState(true);
-  // User signing type ------------------ { Highlight }
-  //   const highlightStyle = sign ? "border-b-2 border-black" : "border-b-2";
+
   return (
     <>
-      {/* IMAGE CONTAINER  */}
       <div className="h-screen md:flex md:justify-center md:items-center ">
         <div className=" bg-white h-2/6 md:h-4/6 md:w-5/12 md:rounded-l-2xl bg-opacity-60 shadow-2xl flex md:max-h-[700px] min-h-[275px] md:min-h-[600px] md:max-w-[550px]">
           <div className="m-auto">
@@ -26,9 +20,7 @@ function SignUp() {
             </p>
           </div>
         </div>
-        {/* FORM CONTAINER */}
         <div className="bg-white h-4/6 md:h-4/6 md:w-5/12 md:rounded-r-xl flex flex-col md:justify-between md:max-h-[700px] md:min-h-[600px] md:max-w-[550px]">
-          {/* SIGN IN / SIGN UP BUTTONS */}
           <div className="hidden md:block mt-12 mx-auto w-5/6 ">
             <p className="text-2xl font-bold">
               {sign ? "Sign up with us today!" : "Welcome back please log in."}
@@ -73,13 +65,8 @@ function SignUp() {
             </div>
           </div>
 
-          {/* GOOGLE BUTTON AND HR */}
           {sign ? <SignUpp /> : <SignIn />}
-          <div className="button-container md:mx-auto md:mb-5 md:w-5/6 md:px-7 ">
-            {/* <button className="border md:rounded-lg bg-[#F45437] h-6/6 p-2   md:h-full w-full   text-white text-xl">
-              Register
-            </button> */}
-          </div>
+          <div className="button-container md:mx-auto md:mb-5 md:w-5/6 md:px-7 "></div>
         </div>
       </div>
     </>

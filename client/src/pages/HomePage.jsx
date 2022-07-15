@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-// import { toast } from "react-toastify";
 import {
   where,
   collection,
@@ -11,7 +10,6 @@ import {
   getDoc,
   setDoc,
   getDocs,
-  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Item from "../components/Item";
@@ -21,17 +19,18 @@ import LoadMoreItemsBtn from "../components/buttons/LoadMoreItemsBtn";
 import { MdAddShoppingCart } from "react-icons/md";
 import useFetch from "../hooks/useFetch";
 import { useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+// eslint-disable-next-line no-unused-vars
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 function HomePage() {
+  // eslint-disable-next-line no-unused-vars
   const { v4: uuidv4 } = require("uuid");
-  const [cartData, setCartData] = useState();
   const [itemIdDisable, setItemIdDisable] = useState([]);
   const [itemLikeDisable, setLikeDisable] = useState([]);
   const [increase, setIncrease] = useState(9);
   const auth = getAuth();
-  // TODO:
+
   const checkCart = (item) => {
     if (itemIdDisable.includes(item.id)) {
       return true;
@@ -46,8 +45,7 @@ function HomePage() {
       return false;
     }
   };
-  // const checkLike = () =>{}
-  // TODO: Refactor two functions 1.
+
   const getFullCart = async () => {
     const q = query(
       collection(db, "user_cart"),
@@ -56,14 +54,13 @@ function HomePage() {
     const querySnapshot = await getDocs(q);
     let arr = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       doc.data().products_id.forEach((item) => {
         arr.push(item.item_id);
       });
     });
     setItemIdDisable(arr);
   };
-  // TODO: Refactor two functions 2.
+
   const getAllLikes = async () => {
     const q = query(
       collection(db, "user_like"),
@@ -80,6 +77,7 @@ function HomePage() {
   useEffect(() => {
     getFullCart();
     getAllLikes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // ----------------------------- user_cart
   const addToCart = async (item, item_id) => {
@@ -122,7 +120,7 @@ function HomePage() {
   const [whileSearch, setWhileSearch] = useState(false);
   const [tempStoreItem, setTempStoreItem] = useState([]);
   // ----------------- custom Hook param  ***
-  // const [increase, setIncrease] = useState(9);
+
   const inc = (increaseValue) => {
     setIncrease(increaseValue);
     incrementItemLimit();

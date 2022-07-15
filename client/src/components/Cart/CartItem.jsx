@@ -29,7 +29,6 @@ function CartItem({ data, removeItem, btn_one, like, removeLike, id }) {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    // like && !addCheck && addToCart(data, id);
                   }}
                 >
                   {btn_one.icon}

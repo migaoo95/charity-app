@@ -21,14 +21,13 @@ function ProductPage() {
   const [disableBtn, setDisableBtn] = useState(false);
   const [itemId, setItemId] = useState("");
   const [existInLike, setExist] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [count, setCount] = useState(0);
   const check = (item) => {
     if (itemExistsInCart.includes(item)) {
       setDisableBtn(true);
-      // console.log('Yes includes');
     } else {
       setDisableBtn(false);
-      // console.log('No it dose not');
     }
   };
   const fetchProduct = async () => {
@@ -46,10 +45,11 @@ function ProductPage() {
     getUpdatedCart().then((data) => {
       setItemExists(data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     check(itemId);
-    console.log(item);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemExistsInCart, item]);
 
   const imageSwap = (index) => {
@@ -63,12 +63,12 @@ function ProductPage() {
     getCartItems(null, item, productId);
   };
   const handleAdd = async (id, auth, item) => {
+    // eslint-disable-next-line no-unused-vars
     const docRef = await addDoc(collection(db, "user_like"), {
       item_id: id,
       user_id: auth,
       item: item,
     });
-    // getAllLikes();
     toast.success("Item added to watchlist");
   };
   // Get entire like list  && check for ids
@@ -84,16 +84,18 @@ function ProductPage() {
       if (productId === doc.data().item_id) {
         setExist(true);
       }
-      console.log(doc.id, " => ", doc.data());
     });
   };
-  const getCart = () => {};
+
   // Effect for cart and likes
   useEffect(() => {
     fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
   useEffect(() => {
+    console.log(item);
     getLikes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className={classes.container}>
@@ -101,9 +103,6 @@ function ProductPage() {
         <BackButton to="/" />
       </div>
       <div className={classes.container__sliderContainer}>
-        {/* <div className={classes.container__sliderContainer__leftBtn}>
-          <IoIosArrowBack color="white" size={35} />
-        </div> */}
         <div className={classes.container__sliderContainer__slideShow}>
           <div
             className={
@@ -115,8 +114,6 @@ function ProductPage() {
             ) : (
               ""
             )}
-            {/* <img id="image1" src={item.imageUrls[0]} alt="productImage1" /> */}
-            {/* <img id="image1" src={images[0].image} alt="productImage1" /> */}
           </div>
 
           <div
@@ -125,7 +122,8 @@ function ProductPage() {
             }
           >
             {item.imageUrls
-              ? item.imageUrls.map((image, i) => {
+              ? // eslint-disable-next-line array-callback-return
+                item.imageUrls.map((image, i) => {
                   if (i > 0) {
                     return (
                       <img
@@ -143,26 +141,18 @@ function ProductPage() {
               : ""}
           </div>
         </div>
-        {/* <div className={classes.container__sliderContainer__rightBtn}>
-          <IoIosArrowForward color="white" size={35} />
-        </div> */}
       </div>
       <div className={classes.container__descContainer}>
         <div className={classes.container__descContainer__heading}>
-          <h1>Patagonia black T-Shirt Flower Lowe</h1>
+          <h1>{item.name}</h1>
         </div>
         <div className={classes.container__descContainer__desc}>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry’s standard dummy text
-            ever since the 1500s,
-          </p>
+          <p>{item.desc}</p>
         </div>
         <div className={classes.container__descContainer__priceBtn}>
           <div className={classes.container__descContainer__priceBtn__price}>
             <h2>Price:</h2>
-            <p>400$</p>
-            <p>600$</p>
+            <p>{item.price}£</p>
           </div>
           <div className={classes.container__descContainer__priceBtn__wishBtn}>
             <button

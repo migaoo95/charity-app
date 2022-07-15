@@ -6,7 +6,7 @@ function productButton({ icon, bg, text, clickFunc, disable, page, modal }) {
   };
   return (
     <button
-      className={classes.btns}
+      className={!disable && classes.btns}
       style={styles}
       onClick={(e) => {
         e.preventDefault();

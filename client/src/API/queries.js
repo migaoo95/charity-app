@@ -73,33 +73,3 @@ query ListLimitSkip($limit:PageLimit) {
   }
 }  
 `;
-// export const QGL_QUERY = `
-// query ListLimitSkip {
-//   CHC {
-//     getCharities(filters: {}) {
-//       list(limit: 10, skip: 30) {
-//         id
-//         name
-//         causes{
-//           name
-//         }
-//         website
-//         objectives
-//         operations{name}
-//        image{
-//         logo{
-//           small
-//         }
-//       }
-//         contact{
-//           social{
-//             platform
-//             handle
-//           }
-//         }
-
-//       }
-//     }
-//   }
-// }
-// `;

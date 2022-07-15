@@ -5,6 +5,7 @@ import ULComponent from "./ULComponent";
 import twitter from "../assets/png/twt.png";
 import facebook from "../assets/png/fcb.png";
 import instagram from "../assets/png/insta.png";
+// eslint-disable-next-line no-unused-vars
 import { v4 as uuidv4 } from "uuid";
 import BackButton from "./buttons/BackButton";
 function PageCharitComp({ data }) {
@@ -88,7 +89,8 @@ function PageCharitComp({ data }) {
               }
             >
               {data.contact.social.length >= 1
-                ? data.contact.social.map((social) => {
+                ? // eslint-disable-next-line array-callback-return
+                  data.contact.social.map((social) => {
                     if (social.platform === "facebook") {
                       return (
                         <a

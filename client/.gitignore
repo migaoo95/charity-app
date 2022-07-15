@@ -49,6 +49,8 @@ node_modules/
 
 # Optional npm cache directory
 .npm
+# production
+/build
 
 # Optional eslint cache
 .eslintcache

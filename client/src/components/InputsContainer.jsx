@@ -1,8 +1,6 @@
-import { db } from "../firebase-config";
 import { customStyles } from "../styles/customStyles/customSelect";
 import SelectIn from "./SelectIn";
 import SearchBar from "./SearchBar";
-import { collection, orderBy } from "firebase/firestore";
 import useFetch from "../hooks/useFetch";
 const style = {
   div: {

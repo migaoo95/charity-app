@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import { QGL_QUERY } from "../API/queries";
 import { fetchCharities } from "../API/api";
 import { useWindowSize } from "../hooks/useWindowSize";
-import useFetchGql from "../hooks/useFetchGql";
 
 // -------------------------
 function Charities() {
@@ -21,8 +20,7 @@ function Charities() {
   const [limit, setLimit] = useState(10);
   const [searchItems, setSearchItems] = useState([]);
   const [tempItems, setTempItems] = useState([]);
-  // --------------------------
-  // const { data } = useFetchGql(QGL_QUERY);
+
   // ---------------------------- Fetch all Items for search
   useEffect(() => {
     fetchCharities(QGL_QUERY, { limit: 25 })
@@ -61,9 +59,6 @@ function Charities() {
   };
   const handleFilter = (e) => {
     setFilter(true);
-    console.log(searchItems);
-    // console.log(e.value);
-    // console.log(searchItems[0].operations[0]);
     let arr = [];
     if (e.value === "all") {
       setFilter(false);

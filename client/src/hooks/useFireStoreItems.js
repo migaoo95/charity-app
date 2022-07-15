@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { db } from "../../firebase-config";
 import { getDocs } from "firebase/firestore";
 const useFireStoreItems = (qry) => {
   const [items, setItems] = useState(null);

@@ -10,11 +10,7 @@ const DropdownIndicator = (props) => {
   );
 };
 function SelectIn({ customStyles, data, handleChange, charityData }) {
-  const [focus, setFocus] = useState(false);
   const [options, setOptions] = useState([]);
-  const inChange = (e) => {
-    console.log(e.target.value);
-  };
 
   useEffect(() => {
     if (data && !charityData) {
