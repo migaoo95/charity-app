@@ -1,5 +1,3 @@
-# About Charityshop.io
-Charityshop.io is a eCommerce web application platform supporting numerous charitable causes by providing users with the ability to buy and sell various products and allocation the entire sale amount to the charity of their choice.
 # Technologies used in this project
 ### React
 
