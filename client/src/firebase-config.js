@@ -1,12 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+console.log(process.env.FIREBASE_API_KEY);
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBXWPqOk7XFAMsjeX1XMOi9SUscnjBf3IE",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "charity-shop-2cfdd.firebaseapp.com",
   projectId: "charity-shop-2cfdd",
   storageBucket: "charity-shop-2cfdd.appspot.com",

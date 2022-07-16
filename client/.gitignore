@@ -51,7 +51,7 @@ node_modules/
 .npm
 # production
 /build
-
+/src/firebase-config.js
 # Optional eslint cache
 .eslintcache
 
